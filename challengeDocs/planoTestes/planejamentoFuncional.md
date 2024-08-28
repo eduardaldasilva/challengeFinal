@@ -21,7 +21,9 @@
   Descrição: Lista de datas e horas em que o filme será exibido, no formato ISO 8601.  
   Exemplo: ["2024-08-23T19:00:00Z", "2024-08-24T21:30:00Z"]
 
-### Cenário CF1 - Listar todos os filmes
+---
+
+### Cenário CF1 - Listar todos os filmes 
 
 - **Método HTTP**: GET  
 - **Endpoint**: /movies
@@ -45,6 +47,8 @@
   ]
   ```
 
+---
+
 #### Caso de Teste CF1.1
 
 **Objetivo**: Verificar se a API retorna a lista de todos os filmes disponíveis no momento.  
@@ -64,6 +68,8 @@
     "showtimes": ["string"]
   }
   ```
+
+---
 
 ### Cenário CF2 - Criar um novo filme (Caminho Feliz)
 
@@ -86,6 +92,8 @@
 - A API deve retornar um erro (400 Bad Request) se qualquer campo obrigatório estiver ausente ou for do tipo incorreto.
 - A API deve garantir que os campos title e description sejam do tipo string.
 - A API deve garantir que o campo launchdate e os elementos do array showtimes estejam no formato $date-time.
+
+---
 
 #### Caso de Teste CF2.1
 
@@ -267,6 +275,8 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
 **Entrada:** `{"title": "Filme 1", "description": "Descrição", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": []}`  
 **Verificação:** Confirmar que a resposta indica um erro devido ao campo `showtimes` vazio.
 
+---
+
 ### Cenário CF4 - Buscar um filme específico
 
 - **Método HTTP**: GET  
@@ -277,6 +287,8 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
 - O sistema deve retornar os detalhes do filme com o ID especificado.
 - O ID deve existir no banco de dados.
 - Se o ID não existir, deve retornar um erro 404.
+
+---
 
 #### Caso de Teste CF4.1
 
@@ -318,6 +330,8 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
     }
     ```
 
+---
+
 ### Cenário CF5 - Atualizar um filme existente
 
 - **Método HTTP**: PUT  
@@ -328,6 +342,8 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
 - O sistema deve permitir atualizar um filme existente com os novos dados fornecidos.
 - O ID deve existir no banco de dados.
 - Se o ID não existir, deve retornar um erro 404.
+
+---
 
 #### Caso de Teste CF5.1
 
@@ -390,22 +406,23 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
       "message": "Filme não encontrado"
     }
     ```
+---
 
-    ### Cenário CF6 - Atualizar um filme (Caminhos alternativos)
+### Cenário CF6 - Atualizar um filme (Caminhos alternativos)
 
 **Método HTTP**: PUT  
 **Endpoint**: /movies  
 
 **Objetivo**: Verificar se o sistema valida os campos obrigatórios preenchidos com tipos de dados diferentes dos casos de aceitação do Cenário Feliz.
-
-**Parâmetros**: Nenhum.  
+ 
 **Método HTTP**: POST  
 **Endpoint**: /movies  
 **Resultado Esperado**: 
 - **Check Status Code**: 400  
 - **Check ID**: Não deve retornar  
 - **Resposta**: Requisição inválida.  
-- **Response body**: Nenhum.
+
+---
 
 #### Caso de Teste CF6.1
 
@@ -523,17 +540,22 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
 **Entrada:** `{"title": "Filme 1", "description": "Descrição", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": []}`  
 **Verificação:** Confirmar que a resposta indica um erro devido ao campo `showtimes` vazio.
 
+---
 
 ### Cenário CF7 - Excluir um filme
 
 - **Método HTTP**: DELETE  
 - **Endpoint**: /movies/{id}
 
+**Objetivo:** O usuário deseja excluir filme com o ID.
+
 #### Critérios de Aceitação
 
 - O sistema deve permitir a exclusão de um filme existente com o ID fornecido.
 - O ID deve existir no banco de dados.
 - Se o ID não existir, deve retornar um erro 404.
+
+---
 
 #### Caso de Teste CF7.1
 
@@ -603,9 +625,29 @@ Exemplo: "2024-08-31T19:00:00Z"
 
 ---
 
-### Cenário CF8 - Reservar Ingressos (POST)
+### Cenário CF8 - Reservar Ingressos 
 
-**Descrição:** O usuário deseja reservar ingressos para assistir a um filme em um cinema.
+- **Método HTTP**: POST  
+- **Endpoint**: /tickets
+
+**Objetivo:** O usuário deseja reservar ingressos para assistir a um filme em um cinema.
+
+**Critérios de Aceitação:**
+
+1. **Validação dos Campos Obrigatórios:**  
+   * **O sistema valida se todos os campos obrigatórios estão preenchidos corretamente.**  
+   * **Campos obrigatórios incluem: `movieId`, `userId`, `seatNumber`, `price`, `showtime`.**  
+2. **Validação do Número do Assento:**  
+   * **O sistema verifica se o `seatNumber` está dentro do intervalo permitido (0 a 99).**  
+   * **Caso o número do assento esteja fora do intervalo, a solicitação deve falhar com um status `400 Bad Request` e uma mensagem de erro adequada.**  
+3. **Validação do Preço do Ingresso:**  
+   * **O sistema verifica se o `price` do ingresso está dentro do intervalo permitido (0 a 60).**  
+   * **Caso o preço do ingresso esteja fora do intervalo, a solicitação deve falhar com um status `400 Bad Request` e uma mensagem de erro adequada.**  
+4. **Criação da Reserva de Ingresso:**  
+   * **Se todas as validações passarem, o sistema deve criar uma reserva de ingresso com os detalhes fornecidos.**  
+   * **O sistema deve atribuir um ID único à reserva de ingresso.**
+
+---
 
 ##### Caso de Teste CF8.1 - Cenário Feliz
 
@@ -632,8 +674,18 @@ Exemplo: "2024-08-31T19:00:00Z"
   "ticketId": "string"
 }
 ```
+---
 
-##### Caso de Teste CF8.2 - Cenário de Erro: Assento Inválido
+### Cenário CF9 - Reservar ingresso (Caminho Alternativo)
+
+- **Método HTTP**: POST  
+- **Endpoint**: /tickets
+
+- **Objetivo:** Verificar se o sistema valida os campos obrigatórios preenchidos com tipos de dados diferentes dos casos de aceitação do Cenário Feliz.
+
+---
+
+#### Caso de Teste CF9.1 - Assento inválido
 
 **Descrição:** Tentar reservar um ingresso com um número de assento fora do intervalo permitido (0 a 99).
 
@@ -661,7 +713,7 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF8.3 - Cenário de Erro: Preço Inválido
+#### Caso de Teste CF9.2 - Cenário de Erro: Preço Inválido
 
 **Descrição:** Tentar reservar um ingresso com um preço fora do intervalo permitido (0 a 60).
 
@@ -689,65 +741,133 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF8.4 - Cenário de Erro: Showtime Inválido
+#### **Caso de Teste CF9.3**
 
-**Descrição:** Tentar reservar um ingresso com uma data e hora para a apresentação do filme no formato inválido.
+**Descrição**: Fluxo para testar validação do campo `movieId` com dados incorretos.
+
+**Passos**:
+
+* **Função 1**: Campo `movieId` como número  
+  Entrada: `"movieId": 123`  
+* **Função 2**: Campo `movieId` como booleano  
+  Entrada: `"movieId": true`  
+* **Função 3**: Campo `movieId` como array  
+  Entrada: `"movieId": ["id1"]`  
+* **Função 4**: Campo `movieId` como objeto  
+  Entrada: `"movieId": {"id": "filme1"}`
+
+#### **Caso de Teste CF9.4**
+
+**Descrição**: Fluxo para testar validação do campo `userId` com dados incorretos.
+
+**Passos**:
+
+* **Função 1**: Campo `userId` como número  
+  Entrada: `"userId": 456`  
+* **Função 2**: Campo `userId` como booleano  
+  Entrada: `"userId": false`  
+* **Função 3**: Campo `userId` como array  
+  Entrada: `"userId": ["id2"]`  
+* **Função 4**: Campo `userId` como objeto  
+  Entrada: `"userId": {"id": "usuario1"}`
+
+#### **Caso de Teste CF9.5**
+
+**Descrição**: Fluxo para testar validação do campo `seatNumber` com dados incorretos.
+
+**Passos**:
+
+* **Função 1**: Campo `seatNumber` como string  
+  Entrada: `"seatNumber": "A5"`  
+* **Função 2**: Campo `seatNumber` como booleano  
+  Entrada: `"seatNumber": true`  
+* **Função 3**: Campo `seatNumber` como array  
+  Entrada: `"seatNumber": [15]`  
+* **Função 4**: Campo `seatNumber` como objeto  
+  Entrada: `"seatNumber": {"number": 10}`
+
+#### **Caso de Teste CF9.6**
+
+**Descrição**: Fluxo para testar validação do campo `price` com dados incorretos.
+
+**Passos**:
+
+* **Função 1**: Campo `price` como string  
+  Entrada: `"price": "vinte"`  
+* **Função 2**: Campo `price` como booleano  
+  Entrada: `"price": false`  
+* **Função 3**: Campo `price` como array  
+  Entrada: `"price": [20]`  
+* **Função 4**: Campo `price` como objeto  
+  Entrada: `"price": {"valor": 30}`
+
+#### **Caso de Teste CF9.7**
+
+**Descrição**: Fluxo para testar validação do campo `showtime` com dados incorretos.
+
+**Passos**:
+
+* **Função 1**: Campo `showtime` com string simples  
+  Entrada: `"showtime": "2024-08-25"`  
+* **Função 2**: Campo `showtime` com string em formato incorreto  
+  Entrada: `"showtime": "25-08-2024T14:24:36"`  
+* **Função 3**: Campo `showtime` como número  
+  Entrada: `"showtime": 1629890400`  
+* **Função 4**: Campo `showtime` como booleano  
+  Entrada: `"showtime": true`
+
+#### **Caso de Teste CF9.8**
+
+**Descrição**: Fluxo para testar os campos obrigatórios ausentes.
+
+**Passos**:
+
+* **Função 1**: Campo `movieId` ausente  
+  Entrada: `{"userId": "usuario1", "seatNumber": 10, "price": 20, "showtime": "2024-08-25T14:24:36.543Z"}`  
+* **Função 2**: Campo `userId` ausente  
+  Entrada: `{"movieId": "filme1", "seatNumber": 10, "price": 20, "showtime": "2024-08-25T14:24:36.543Z"}`  
+* **Função 3**: Campo `seatNumber` ausente  
+  Entrada: `{"movieId": "filme1", "userId": "usuario1", "price": 20, "showtime": "2024-08-25T14:24:36.543Z"}`  
+* **Função 4**: Campo `price` ausente  
+  Entrada: `{"movieId": "filme1", "userId": "usuario1", "seatNumber": 10, "showtime": "2024-08-25T14:24:36.543Z"}`  
+* **Função 5**: Campo `showtime` ausente  
+  Entrada: `{"movieId": "filme1", "userId": "usuario1", "seatNumber": 10, "price": 20}`
+
+#### **Caso de Teste CF9.9**
+
+**Descrição:** Fluxo para testar a presença de campos vazios.
 
 **Passos:**
-1. Enviar uma solicitação POST para o endpoint `/tickets` com uma data e hora inválida.
 
-**Request Body:**
-```json
-{
-  "movieId": "string",
-  "userId": "string",
-  "seatNumber": 10,
-  "price": 25,
-  "showtime": "2024-08-31 19:00:00"
-}
-```
-
-**Resultado Esperado:**
-- **Check Status Code:** 400 Bad Request  
-- **Resposta:** A requisição deve falhar com uma mensagem indicando que a data e hora do showtime estão em formato inválido.  
-- **Response Body:**
-```json
-{
-  "error": "Formato de data e hora inválido. Deve ser no formato ISO 8601."
-}
-```
-
-##### Caso de Teste CF8.5 - Cenário de Erro: Campos Obrigatórios Ausentes
-
-**Descrição:** Tentar reservar um ingresso sem fornecer todos os campos obrigatórios.
-
-**Passos:**
-1. Enviar uma solicitação POST para o endpoint `/tickets` sem um ou mais campos obrigatórios.
-
-**Request Body:**
-```json
-{
-  "movieId": "string",
-  "userId": "string",
-  "seatNumber": 10
-}
-```
-
-**Resultado Esperado:**
-- **Check Status Code:** 400 Bad Request  
-- **Resposta:** A requisição deve falhar com uma mensagem indicando que os campos obrigatórios estão ausentes.  
-- **Response Body:**
-```json
-{
-  "error": "Campos obrigatórios ausentes. Os campos price e showtime são obrigatórios."
-}
-```
+* **Função 1:** Campo `movieId` vazio  
+  **Entrada:** `{"movieId": "", "userId": "usuario1", "seatNumber": 10, "price": 20, "showtime": "2024-08-25T14:24:36.543Z"}`  
+  **Verificação:** Confirmar que a resposta indica um erro devido ao campo `movieId` vazio.  
+* **Função 2:** Campo `userId` vazio  
+  **Entrada:** `{"movieId": "filme1", "userId": "", "seatNumber": 10, "price": 20, "showtime": "2024-08-25T14:24:36.543Z"}`  
+  **Verificação:** Confirmar que a resposta indica um erro devido ao campo `userId` vazio.  
+* **Função 3:** Campo `seatNumber` vazio  
+  **Entrada:** `{"movieId": "filme1", "userId": "usuario1", "seatNumber": "", "price": 20, "showtime": "2024-08-25T14:24:36.543Z"}`  
+  **Verificação:** Confirmar que a resposta indica um erro devido ao campo `seatNumber` vazio.  
+* **Função 4:** Campo `price` vazio  
+  **Entrada:** `{"movieId": "filme1", "userId": "usuario1", "seatNumber": 10, "price": "", "showtime": "2024-08-25T14:24:36.543Z"}`  
+  **Verificação:** Confirmar que a resposta indica um erro devido ao campo `price` vazio.  
+* **Função 5:** Campo `showtime` vazio  
+  **Entrada:** `{"movieId": "filme1", "userId": "usuario1", "seatNumber": 10, "price": 20, "showtime": ""}`  
+  **Verificação:** Confirmar que a resposta indica um erro devido ao campo `showtime` vazio.
 
 ---
 
-### Cenário CF9 - Consultar Todos os Ingressos (GET)
+### Cenário CF10 - Consultar Todos os Ingressos 
 
-##### Caso de Teste CF9.1 - Cenário Feliz
+- **Método HTTP**: GET 
+- **Endpoint**: /tickets
+
+- **Objetivo:** Verificar se o sistema retorna todos os ingressos.
+
+
+---
+
+##### Caso de Teste CF10.1 - Cenário Feliz
 
 **Descrição:** Consultar a lista de todos os ingressos reservados.
 
@@ -775,9 +895,23 @@ Exemplo: "2024-08-31T19:00:00Z"
 
 ---
 
-### Cenário CF10 - Consultar Ingresso por ID (GET)
+### Cenário CF11 - Consultar Ingresso por ID (GET)
 
-##### Caso de Teste CF10.1 - Cenário Feliz
+- **Método HTTP**: GET 
+- **Endpoint**: /tickets/{id}
+
+- **Objetivo:** Verificar se o sistema ingresso solicitado.
+
+**Critérios de Aceitação:**
+
+1. **Validação da Existência do Ingresso:**  
+   * **O sistema verifica se a reserva de ingresso com o `ticketId` fornecido existe.**  
+2. **Recuperação dos Detalhes da Reserva:**  
+   * **Se a reserva existir, o sistema deve recuperar e retornar os detalhes completos da reserva de ingresso.**
+
+---
+
+##### Caso de Teste CF11.1 - Cenário Feliz
 
 **Descrição:** Consultar um ingresso específico pelo ID.
 
@@ -799,7 +933,7 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF10.2 - Cenário de Erro: ID Inválido
+##### Caso de Teste CF11.2 - Cenário de Erro: ID Inválido
 
 **Descrição:** Tentar consultar um ingresso com um ID inválido.
 
@@ -820,9 +954,30 @@ Exemplo: "2024-08-31T19:00:00Z"
 
 ---
 
-### Cenário CF11 - Atualizar Ingresso por ID (PUT)
+### Cenário CF12 - Atualizar Ingresso por ID
 
-##### Caso de Teste CF11.1 - Cenário Feliz
+- **Método HTTP**: PUT 
+- **Endpoint**: /tickets/{id}
+
+- **Objetivo:** Verificar se o sistema atualiza os campos preenchidos.
+
+**Critérios de Aceitação:**
+
+1. **Validação dos Campos Obrigatórios:**  
+   * O sistema valida se todos os campos obrigatórios estão preenchidos corretamente ao editar uma reserva.  
+   * Campos obrigatórios incluem: `movieId`, `userId`, `seatNumber`, `price`, `showtime`.  
+2. **Validação do Número do Assento:**  
+   * O sistema verifica se o `seatNumber` está dentro do intervalo permitido (0 a 99).  
+   * Caso o número do assento esteja fora do intervalo, a solicitação deve falhar com um status `400 Bad Request` e uma mensagem de erro adequada.  
+3. **Validação do Preço do Ingresso:**  
+   * O sistema verifica se o `price` do ingresso está dentro do intervalo permitido (0 a 60).  
+   * Caso o preço do ingresso esteja fora do intervalo, a solicitação deve falhar com um status `400 Bad Request` e uma mensagem de erro adequada.  
+4. **Edição da Reserva de Ingresso:**  
+   * Se todas as validações passarem, o sistema deve atualizar a reserva de ingresso com os novos detalhes fornecidos.
+
+---
+
+##### Caso de Teste CF12.1 - Cenário Feliz
 
 **Descrição:** Atualizar os detalhes de um ingresso existente.
 
@@ -855,16 +1010,185 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF11.2 - Cenário de Erro: ID Inválido
+---
+
+### Cenário CF13 - Editar um ticket (Caminhos alternativos) 
+
+- **Método HTTP**: PUT 
+- **Endpoint**: /tickets/{id}
+
+- **Objetivo:** Verificar se o sistema atualiza os campos preenchidos diferente do caminho feliz.
+
+---
+
+**Método HTTP**: PUT  
+**Endpoint**: /tickets/{ticketId}  
+
+**Objetivo**: Verificar se o sistema valida os campos obrigatórios preenchidos com tipos de dados diferentes dos casos de aceitação do Cenário Feliz ao tentar editar um ticket.
+
+
+#### Caso de Teste CF13.1 - Assento inválido
+
+**Descrição:** Tentar editar um ticket com um número de assento fora do intervalo permitido (0 a 99).
+
+**Passos**:
+1. Enviar uma solicitação PUT para o endpoint `/tickets/{ticketId}` com um número de assento inválido.
+
+**Request Body:**
+```json
+{
+  "movieId": "string",
+  "userId": "string",
+  "seatNumber": 100,
+  "price": 25,
+  "showtime": "2024-08-31T19:00:00Z"
+}
+```
+
+**Resultado Esperado:**
+- **Check Status Code:** 400 Bad Request  
+- **Resposta:** A requisição deve falhar com uma mensagem indicando que o número do assento é inválido.  
+- **Response Body:**
+```json
+{
+  "error": "Número do assento inválido. Deve estar entre 0 e 99."
+}
+```
+
+#### Caso de Teste CF13.2 - Preço inválido
+
+**Descrição:** Tentar editar um ticket com um preço fora do intervalo permitido (0 a 60).
+
+**Passos**:
+1. Enviar uma solicitação PUT para o endpoint `/tickets/{ticketId}` com um preço inválido.
+
+**Request Body:**
+```json
+{
+  "movieId": "string",
+  "userId": "string",
+  "seatNumber": 10,
+  "price": 65,
+  "showtime": "2024-08-31T19:00:00Z"
+}
+```
+
+**Resultado Esperado:**
+- **Check Status Code:** 400 Bad Request  
+- **Resposta:** A requisição deve falhar com uma mensagem indicando que o preço do ingresso é inválido.  
+- **Response Body:**
+```json
+{
+  "error": "Preço do ingresso inválido. Deve estar entre 0 e 60."
+}
+```
+
+#### Caso de Teste CF13.3 - Fluxo para testar validação do campo `movieId` com dados incorretos
+
+**Descrição**: Verificar se o campo `movieId` aceita apenas strings válidas.
+
+**Passos**:
+
+- **Função 1**: Campo `movieId` como número  
+  Entrada: `"movieId": 123`
+
+- **Função 2**: Campo `movieId` como booleano  
+  Entrada: `"movieId": true`
+
+- **Função 3**: Campo `movieId` como array  
+  Entrada: `"movieId": ["id123"]`
+
+- **Função 4**: Campo `movieId` como objeto  
+  Entrada: `"movieId": {"id": "123"}`
+
+#### Caso de Teste CF13.4 - Fluxo para testar validação do campo `userId` com dados incorretos
+
+**Descrição**: Verificar se o campo `userId` aceita apenas strings válidas.
+
+**Passos**:
+
+- **Função 1**: Campo `userId` como número  
+  Entrada: `"userId": 456`
+
+- **Função 2**: Campo `userId` como booleano  
+  Entrada: `"userId": false`
+
+- **Função 3**: Campo `userId` como array  
+  Entrada: `"userId": ["id456"]`
+
+- **Função 4**: Campo `userId` como objeto  
+  Entrada: `"userId": {"id": "456"}`
+
+#### Caso de Teste CF13.5 - Fluxo para testar validação do campo `showtime` com dados incorretos
+
+**Descrição**: Verificar se o campo `showtime` aceita apenas strings válidas no formato `date-time`.
+
+**Passos**:
+
+- **Função 1**: Campo `showtime` como string simples  
+  Entrada: `"showtime": "2024-08-25"`
+
+- **Função 2**: Campo `showtime` como string com formato incorreto  
+  Entrada: `"showtime": "25-08-2024T14:24:36"`
+
+- **Função 3**: Campo `showtime` como número  
+  Entrada: `"showtime": 1629890400`
+
+- **Função 4**: Campo `showtime` como booleano  
+  Entrada: `"showtime": true`
+
+#### Caso de Teste CF13.6 - Campos obrigatórios ausentes
+
+**Descrição**: Verificar a resposta do sistema ao tentar editar um ticket com campos obrigatórios ausentes.
+
+**Passos**:
+
+- **Função 1**: Campo `movieId` ausente  
+  Entrada: `{"userId": "user123", "seatNumber": 10, "price": 25, "showtime": "2024-08-31T19:00:00Z"}`
+
+- **Função 2**: Campo `userId` ausente  
+  Entrada: `{"movieId": "movie123", "seatNumber": 10, "price": 25, "showtime": "2024-08-31T19:00:00Z"}`
+
+- **Função 3**: Campo `seatNumber` ausente  
+  Entrada: `{"movieId": "movie123", "userId": "user123", "price": 25, "showtime": "2024-08-31T19:00:00Z"}`
+
+- **Função 4**: Campo `price` ausente  
+  Entrada: `{"movieId": "movie123", "userId": "user123", "seatNumber": 10, "showtime": "2024-08-31T19:00:00Z"}`
+
+- **Função 5**: Campo `showtime` ausente  
+  Entrada: `{"movieId": "movie123", "userId": "user123", "seatNumber": 10, "price": 25}`
+
+#### Caso de Teste CF13.7 - Campos obrigatórios vazios
+
+**Descrição**: Verificar a resposta do sistema ao tentar editar um ticket com campos obrigatórios vazios.
+
+**Passos**:
+
+- **Função 1**: Campo `movieId` vazio  
+  Entrada: `{"movieId": "", "userId": "user123", "seatNumber": 10, "price": 25, "showtime": "2024-08-31T19:00:00Z"}`
+
+- **Função 2**: Campo `userId` vazio  
+  Entrada: `{"movieId": "movie123", "userId": "", "seatNumber": 10, "price": 25, "showtime": "2024-08-31T19:00:00Z"}`
+
+- **Função 3**: Campo `seatNumber` vazio  
+  Entrada: `{"movieId": "movie123", "userId": "user123", "seatNumber": null, "price": 25, "showtime": "2024-08-31T19:00:00Z"}`
+
+- **Função 4**: Campo `price` vazio  
+  Entrada: `{"movieId": "movie123", "userId": "user123", "seatNumber": 10, "price": null, "showtime": "2024-08-31T19:00:00Z"}`
+
+- **Função 5**: Campo `showtime` vazio  
+  Entrada: `{"movieId": "movie123", "userId": "user123", "seatNumber": 10, "price": 25, "showtime": ""}`
+
+
+
+##### Caso de Teste CF13.8 - ID Inválido
 
 **Descrição:** Tentar atualizar um ingresso com um ID inválido.
 
 **Passos:**
-1. Enviar uma solic
+1. Enviar uma solicitação PUT para o endpoint `/tickets/{id}` com um ID inválido.
 
-itação PUT para o endpoint `/tickets/{id}` com um ID inválido e novos detalhes.
-
-**Request Path:** `/tickets/invalid-id`
+**Request Path:** `/tickets/.`
 
 **Request Body:**
 ```json
@@ -889,9 +1213,23 @@ itação PUT para o endpoint `/tickets/{id}` com um ID inválido e novos detalhe
 
 ---
 
-### Cenário CF12 - Cancelar Ingresso (DELETE)
+### Cenário CF14 - Cancelar Ingresso 
 
-##### Caso de Teste CF12.1 - Cenário Feliz
+- **Método HTTP**: DELETE
+- **Endpoint**: /tickets/{id}
+
+- **Objetivo:** Verificar se o sistema deleta o ingresso selecionado.
+
+**Critérios de Aceitação:**
+
+1. **Validação da Existência do Ingresso:**  
+   * O sistema verifica se a reserva de ingresso com o `ticketId` fornecido existe.  
+2. **Exclusão da Reserva de Ingresso:**  
+   * Se a reserva existir, o sistema deve excluir a reserva de ingresso correspondente.
+
+---
+
+##### Caso de Teste CF14.1 - Cenário Feliz
 
 **Descrição:** Cancelar um ingresso específico pelo ID.
 
@@ -908,7 +1246,7 @@ itação PUT para o endpoint `/tickets/{id}` com um ID inválido e novos detalhe
 }
 ```
 
-##### Caso de Teste CF12.2 - Cenário de Erro: ID Inválido
+##### Caso de Teste CF14.2 - Cenário de Erro: ID Inválido
 
 **Descrição:** Tentar cancelar um ingresso com um ID inválido.
 

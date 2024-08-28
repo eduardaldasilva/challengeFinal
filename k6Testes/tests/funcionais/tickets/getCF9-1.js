@@ -1,4 +1,4 @@
-// Caso de Teste CF8.1 - Listar todos os tickets
+// Caso de Teste CF9.1 - GET - Listar todos os tickets
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js'
 

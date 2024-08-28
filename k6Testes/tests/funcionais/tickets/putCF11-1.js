@@ -1,5 +1,4 @@
-// Caso de Trste CF10.1 - Deletar ticket por ID
-
+// Caso de teste CF11.1 - PUT - Atualizar ticket
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js'
 import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
@@ -16,6 +15,7 @@ const tickets = new SharedArray('tickets', function () {
 
 // Preparando criação do ticket, pegar o ID 
 
+
 export function setup() {
     const body = randomItem(tickets);
     const post = baseRest.post(ENDPOINTS.TICKETS_ENDPOINT, body);
@@ -25,15 +25,27 @@ export function setup() {
     return { id }   
 }
 
-// Utilizando o ID para deletar
+// Utilizando o ID para atualizar
 
 export default function (data) {
     const id = data.id;
-    const res = baseRest.del(ENDPOINTS.TICKETS_ENDPOINT + `/${id}`)
+    const body = randomItem(tickets);
+    const res = baseRest.put(ENDPOINTS.TICKETS_ENDPOINT + `/${id}`, body)
     console.log(res.body)
-
+    
     baseChecks.checkStatusCode(res, 200);
+    baseChecks.checkFilmeTitulo(res);  
+    baseChecks.checkFilmeDescricao(res); 
+    baseChecks.checklaunchdate(res);  
+    baseChecks.checkshowtimes(res); 
+    baseChecks.checkId(res); 
+
+    console.log(res.body)
     console.log(`Status Code: ${res.status}`); 
+
+    console.log(res.body)
+    console.log(`Status Code: ${res.status}`); 
+
 }
 
 
