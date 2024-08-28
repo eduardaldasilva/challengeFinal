@@ -246,6 +246,27 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
 
 - **Função 2**: Verificar se o sistema retorna erro de título duplicado
 
+#### Caso de Teste CF3.7 
+**Descrição:** Fluxo para testar a presença de campos vazios.
+
+**Passos:**
+
+- **Função 1:** Campo `title` vazio  
+**Entrada:** `{"title": "", "description": "Descrição", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": ["2024-08-31T19:00:00Z"]}`  
+**Verificação:** Confirmar que a resposta indica um erro devido ao campo `title` vazio.
+
+- **Função 2:** Campo `description` vazio  
+**Entrada:** `{"title": "Filme 1", "description": "", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": ["2024-08-31T19:00:00Z"]}`  
+**Verificação:** Confirmar que a resposta indica um erro devido ao campo `description` vazio.
+
+- **Função 3:** Campo `launchdate` vazio  
+**Entrada:** `{"title": "Filme 1", "description": "Descrição", "launchdate": "", "showtimes": ["2024-08-31T19:00:00Z"]}`  
+**Verificação:** Confirmar que a resposta indica um erro devido ao campo `launchdate` vazio.
+
+- **Função 4:** Campo `showtimes` vazio  
+**Entrada:** `{"title": "Filme 1", "description": "Descrição", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": []}`  
+**Verificação:** Confirmar que a resposta indica um erro devido ao campo `showtimes` vazio.
+
 ### Cenário CF4 - Buscar um filme específico
 
 - **Método HTTP**: GET  
@@ -370,7 +391,140 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
     }
     ```
 
-### Cenário CF6 - Excluir um filme
+    ### Cenário CF6 - Atualizar um filme (Caminhos alternativos)
+
+**Método HTTP**: PUT  
+**Endpoint**: /movies  
+
+**Objetivo**: Verificar se o sistema valida os campos obrigatórios preenchidos com tipos de dados diferentes dos casos de aceitação do Cenário Feliz.
+
+**Parâmetros**: Nenhum.  
+**Método HTTP**: POST  
+**Endpoint**: /movies  
+**Resultado Esperado**: 
+- **Check Status Code**: 400  
+- **Check ID**: Não deve retornar  
+- **Resposta**: Requisição inválida.  
+- **Response body**: Nenhum.
+
+#### Caso de Teste CF6.1
+
+**Descrição**: Fluxo para testar validação do campo `title` com dados incorretos.
+
+**Passos**:
+
+- **Função 1**: Campo `title` como número  
+  Entrada: `"title": 123`
+
+- **Função 2**: Campo `title` como booleano  
+  Entrada: `"title": true`
+
+- **Função 3**: Campo `title` como array  
+  Entrada: `"title": ["Título 1"]`
+
+- **Função 4**: Campo `title` como objeto  
+  Entrada: `"title": {"text": "Filme 1"}`
+
+#### Caso de Teste CF6.2
+
+**Descrição**: Fluxo para testar validação do campo `description` com dados incorretos.
+
+**Passos**:
+
+- **Função 1**: Campo `description` como número  
+  Entrada: `"description": 456`
+
+- **Função 2**: Campo `description` como booleano  
+  Entrada: `"description": false`
+
+- **Função 3**: Campo `description` como array  
+  Entrada: `"description": ["Descrição"]`
+
+- **Função 4**: Campo `description` como objeto  
+  Entrada: `"description": {"text": "Descrição"}`
+
+#### Caso de Teste CF6.3
+
+**Descrição**: Fluxo para testar validação do campo `launchdate` com dados incorretos.
+
+**Passos**:
+
+- **Função 1**: Campo `launchdate` como string simples  
+  Entrada: `"launchdate": "2024-08-25"`
+
+- **Função 2**: Campo `launchdate` como string com formato incorreto  
+  Entrada: `"launchdate": "25-08-2024T14:24:36"`
+
+- **Função 3**: Campo `launchdate` como número  
+  Entrada: `"launchdate": 1629890400`
+
+- **Função 4**: Campo `launchdate` como booleano  
+  Entrada: `"launchdate": true`
+
+#### Caso de Teste CF6.4
+
+**Descrição**: Fluxo para testar validação do campo `showtimes` com dados incorretos.
+
+**Passos**:
+
+- **Função 1**: Campo `showtimes` com strings fora do formato $date-time  
+  Entrada: `"showtimes": ["2024-08-31", "19:00:00"]`
+
+- **Função 2**: Campo `showtimes` com números no lugar de strings  
+  Entrada: `"showtimes": [1629890400, 1629890401]`
+
+- **Função 3**: Campo `showtimes` com booleanos no lugar de strings  
+  Entrada: `"showtimes": [true, false]`
+
+- **Função 4**: Campo `showtimes` com array vazia  
+  Entrada: `"showtimes": []`
+
+- **Função 5**: Campo `showtimes` como null  
+  Entrada: `"showtimes": null`
+
+#### Caso de Teste CF6.5
+
+**Descrição**: Fluxo para testar os campos obrigatórios ausentes.
+
+**Passos**:
+
+- **Função 1**: Campo `title` ausente  
+  Entrada: `{"description": "Descrição", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": ["2024-08-31T19:00:00Z"]}`
+
+- **Função 2**: Campo `description` ausente  
+  Entrada: `{"title": "Filme 1", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": ["2024-08-31T19:00:00Z"]}`
+
+- **Função 3**: Campo `launchdate` ausente  
+  Entrada: `{"title": "Fil
+
+me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
+
+- **Função 4**: Campo `showtimes` ausente  
+  Entrada: `{"title": "Filme 1", "description": "Descrição", "launchdate": "2024-08-25T14:24:36.543Z"}`
+
+  ### Caso de Teste CF6.6 
+**Descrição:** Fluxo para testar a presença de campos vazios.
+
+**Passos:**
+
+- **Função 1:** Campo `title` vazio  
+**Entrada:** `{"title": "", "description": "Descrição", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": ["2024-08-31T19:00:00Z"]}`  
+**Verificação:** Confirmar que a resposta indica um erro devido ao campo `title` vazio.
+
+- **Função 2:** Campo `description` vazio  
+**Entrada:** `{"title": "Filme 1", "description": "", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": ["2024-08-31T19:00:00Z"]}`  
+**Verificação:** Confirmar que a resposta indica um erro devido ao campo `description` vazio.
+
+- **Função 3:** Campo `launchdate` vazio  
+**Entrada:** `{"title": "Filme 1", "description": "Descrição", "launchdate": "", "showtimes": ["2024-08-31T19:00:00Z"]}`  
+**Verificação:** Confirmar que a resposta indica um erro devido ao campo `launchdate` vazio.
+
+- **Função 4:** Campo `showtimes` vazio  
+**Entrada:** `{"title": "Filme 1", "description": "Descrição", "launchdate": "2024-08-25T14:24:36.543Z", "showtimes": []}`  
+**Verificação:** Confirmar que a resposta indica um erro devido ao campo `showtimes` vazio.
+
+
+### Cenário CF7 - Excluir um filme
 
 - **Método HTTP**: DELETE  
 - **Endpoint**: /movies/{id}
@@ -381,7 +535,7 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
 - O ID deve existir no banco de dados.
 - Se o ID não existir, deve retornar um erro 404.
 
-#### Caso de Teste CF6.1
+#### Caso de Teste CF7.1
 
 **Objetivo**: Verificar se o sistema exclui um filme existente com o ID fornecido.  
 **Passos**:
@@ -399,7 +553,7 @@ me 1", "description": "Descrição", "showtimes": ["2024-08-31T19:00:00Z"]}`
     }
     ```
 
-#### Caso de Teste CF6.2
+#### Caso de Teste CF7.2
 
 **Objetivo**: Verificar se o sistema retorna erro ao tentar excluir um filme com um ID que não existe.  
 **Passos**:
@@ -449,11 +603,11 @@ Exemplo: "2024-08-31T19:00:00Z"
 
 ---
 
-### Cenário CF7 - Reservar Ingressos (POST)
+### Cenário CF8 - Reservar Ingressos (POST)
 
 **Descrição:** O usuário deseja reservar ingressos para assistir a um filme em um cinema.
 
-##### Caso de Teste CF7.1 - Cenário Feliz
+##### Caso de Teste CF8.1 - Cenário Feliz
 
 **Passos:**
 1. Enviar uma solicitação POST para o endpoint `/tickets` com os seguintes detalhes do ingresso.
@@ -479,7 +633,7 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF7.2 - Cenário de Erro: Assento Inválido
+##### Caso de Teste CF8.2 - Cenário de Erro: Assento Inválido
 
 **Descrição:** Tentar reservar um ingresso com um número de assento fora do intervalo permitido (0 a 99).
 
@@ -507,7 +661,7 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF7.3 - Cenário de Erro: Preço Inválido
+##### Caso de Teste CF8.3 - Cenário de Erro: Preço Inválido
 
 **Descrição:** Tentar reservar um ingresso com um preço fora do intervalo permitido (0 a 60).
 
@@ -535,7 +689,7 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF7.4 - Cenário de Erro: Showtime Inválido
+##### Caso de Teste CF8.4 - Cenário de Erro: Showtime Inválido
 
 **Descrição:** Tentar reservar um ingresso com uma data e hora para a apresentação do filme no formato inválido.
 
@@ -563,7 +717,7 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF7.5 - Cenário de Erro: Campos Obrigatórios Ausentes
+##### Caso de Teste CF8.5 - Cenário de Erro: Campos Obrigatórios Ausentes
 
 **Descrição:** Tentar reservar um ingresso sem fornecer todos os campos obrigatórios.
 
@@ -591,9 +745,9 @@ Exemplo: "2024-08-31T19:00:00Z"
 
 ---
 
-### Cenário CF8 - Consultar Todos os Ingressos (GET)
+### Cenário CF9 - Consultar Todos os Ingressos (GET)
 
-##### Caso de Teste CF8.1 - Cenário Feliz
+##### Caso de Teste CF9.1 - Cenário Feliz
 
 **Descrição:** Consultar a lista de todos os ingressos reservados.
 
@@ -621,9 +775,9 @@ Exemplo: "2024-08-31T19:00:00Z"
 
 ---
 
-### Cenário CF9 - Consultar Ingresso por ID (GET)
+### Cenário CF10 - Consultar Ingresso por ID (GET)
 
-##### Caso de Teste CF9.1 - Cenário Feliz
+##### Caso de Teste CF10.1 - Cenário Feliz
 
 **Descrição:** Consultar um ingresso específico pelo ID.
 
@@ -645,7 +799,7 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF9.2 - Cenário de Erro: ID Inválido
+##### Caso de Teste CF10.2 - Cenário de Erro: ID Inválido
 
 **Descrição:** Tentar consultar um ingresso com um ID inválido.
 
@@ -666,9 +820,9 @@ Exemplo: "2024-08-31T19:00:00Z"
 
 ---
 
-### Cenário CF10 - Atualizar Ingresso por ID (PUT)
+### Cenário CF11 - Atualizar Ingresso por ID (PUT)
 
-##### Caso de Teste CF10.1 - Cenário Feliz
+##### Caso de Teste CF11.1 - Cenário Feliz
 
 **Descrição:** Atualizar os detalhes de um ingresso existente.
 
@@ -701,7 +855,7 @@ Exemplo: "2024-08-31T19:00:00Z"
 }
 ```
 
-##### Caso de Teste CF10.2 - Cenário de Erro: ID Inválido
+##### Caso de Teste CF11.2 - Cenário de Erro: ID Inválido
 
 **Descrição:** Tentar atualizar um ingresso com um ID inválido.
 
@@ -735,9 +889,9 @@ itação PUT para o endpoint `/tickets/{id}` com um ID inválido e novos detalhe
 
 ---
 
-### Cenário CF11 - Cancelar Ingresso (DELETE)
+### Cenário CF12 - Cancelar Ingresso (DELETE)
 
-##### Caso de Teste CF11.1 - Cenário Feliz
+##### Caso de Teste CF12.1 - Cenário Feliz
 
 **Descrição:** Cancelar um ingresso específico pelo ID.
 
@@ -754,7 +908,7 @@ itação PUT para o endpoint `/tickets/{id}` com um ID inválido e novos detalhe
 }
 ```
 
-##### Caso de Teste CF11.2 - Cenário de Erro: ID Inválido
+##### Caso de Teste CF12.2 - Cenário de Erro: ID Inválido
 
 **Descrição:** Tentar cancelar um ingresso com um ID inválido.
 
