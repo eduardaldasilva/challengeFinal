@@ -1,11 +1,12 @@
 import { check } from 'k6';
 
 export class BaseChecks {
-    checkStatusCode(response, expectedStatus = 200) {
-        check(response, {
-            'Status code check': (r) => r.status === expectedStatus,
+    checkStatusCode(response, expectedStatus) {
+        return check(response, {
+            [`status is ${expectedStatus}`]: (r) => r.status === expectedStatus,
         });
     }
+    
 
     checkResponseTime(response, expectedTime = 900) {
         check(response, {

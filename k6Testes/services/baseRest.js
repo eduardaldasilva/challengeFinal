@@ -6,25 +6,27 @@ export class BaseRest extends BaseService {
         super(base_uri);
     }
 
-
     get(endpoint) {
         let uri = this.base_uri + endpoint;
-        return http.get(uri)
+        return http.get(uri);
     }
 
     post(endpoint, body) {
         let uri = this.base_uri + endpoint;
-        return http.post(uri, body)
+        return http.post(uri, JSON.stringify(body), {
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 
     put(endpoint, body) {
         let uri = this.base_uri + endpoint;
-        return http.put(uri, body)
+        return http.put(uri, JSON.stringify(body), {
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 
     del(endpoint) {
         let uri = this.base_uri + endpoint;
-        return http.del(uri)
+        return http.del(uri);
     }
-
 }

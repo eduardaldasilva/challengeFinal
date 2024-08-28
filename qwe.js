@@ -1,5 +1,4 @@
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from './k6Testes/support/base/baseTest.js';
-import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 const base_uri = testConfig.environment.hml.url;
@@ -36,6 +35,3 @@ export default function () {
     baseChecks.checkStatusCode(res, 400);
 }
 
-export function teardown(data) {
-    // Função de teardown para limpeza, se necessário
-}

@@ -6,12 +6,77 @@ export const testConfig = {
     },
 
     options: {
-
+    // Funcionais:
         one: {
             vus: 1,
             duration: '1s',
             iterations: '1',
         },    
+
+        // POST tickets
+        spikePostTickets: {
+        thresholds: {
+            http_req_duration: ['p(95)<300'], 
+            http_reqs: ['rate>50'],
+            http_req_failed: ['rate<0.05'] 
+        },
+        stages: [
+            { duration: '2m', target: 2000 },
+            { duration: '30s', target: 0 },
+        ],
+    },
+
+    stressPostTickets: {
+        thresholds: {
+            http_req_duration: ['p(95)<300'], 
+            http_reqs: ['rate>50'],
+            http_req_failed: ['rate<0.05'] 
+        },
+        stages: [
+            { duration: '1m', target: 200 },
+            { duration: '4m', target: 200 },
+            { duration: '1m', target: 0 },
+        ],
+    },
+
+    loadPostTickets: {
+        thresholds: {
+            http_req_duration: ['p(95)<300'], 
+            http_reqs: ['rate>50'],
+            http_req_failed: ['rate<0.05'] 
+        },
+        stages: [
+            { duration: '1m', target: 100 },
+            { duration: '4m', target: 100 },
+            { duration: '1m', target: 0 },
+        ]
+    },
+
+    soakPostTickets: {
+        thresholds: {
+            http_req_duration: ['p(95)<300'], 
+            http_reqs: ['rate>50'],
+            http_req_failed: ['rate<0.05'] 
+        },
+        stages: [
+            { duration: '1m', target: 100 },
+            { duration: '8m', target: 100 },
+            { duration: '1m', target: 0 },
+        ]
+    },
+
+
+        smokePostTickets: {
+                vus: 3,
+                duration: '10s',
+            thresholds: {
+                http_req_duration: ['p(95)<300'], 
+                http_reqs: ['rate>50'],
+                http_req_failed: ['rate<0.05'] 
+            }
+        },
+
+        // Parametros normais
 
         spike: {
             vus: 2000,
@@ -21,13 +86,13 @@ export const testConfig = {
             },
             stages: [
                 { duration: '2m', target: 2000 },
-                { duration: '1m', target: 0 },
+                { duration: '30s', target: 0 },
             ],
         },
 
         smoke: {
             vus: 3,
-            duration: '1m',
+            duration: '20s',
             thresholds: {
                 http_req_duration: ['p(95)<2000'],
                 http_req_failed: ['rate<0.05']
@@ -40,9 +105,9 @@ export const testConfig = {
                 http_req_failed: ['rate<0.05']
             },
             stages: [
-                { duration: '3m', target: 100 },
-                { duration: '10m', target: 100 },
-                { duration: '3m', target: 0 },
+                { duration: '1m', target: 100 },
+                { duration: '8m', target: 100 },
+                { duration: '1m', target: 0 },
             ]
         },
 
@@ -52,9 +117,9 @@ export const testConfig = {
                 http_req_failed: ['rate<0.05']
             },
             stages: [
-                { duration: '3m', target: 200 },
-                { duration: '5m', target: 200 },
-                { duration: '3m', target: 0 },
+                { duration: '1m', target: 200 },
+                { duration: '4m', target: 200 },
+                { duration: '1m', target: 0 },
             ],
         },
 
@@ -64,9 +129,9 @@ export const testConfig = {
                 http_req_failed: ['rate<0.05']
             },
             stages: [
-                { duration: '3m', target: 100 },
-                { duration: '5m', target: 100 },
-                { duration: '3m', target: 0 },
+                { duration: '1m', target: 100 },
+                { duration: '4m', target: 100 },
+                { duration: '1m', target: 0 },
             ]
         },
     }
