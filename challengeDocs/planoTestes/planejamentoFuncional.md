@@ -855,6 +855,79 @@ Exemplo: "2024-08-31T19:00:00Z"
   **Entrada:** `{"movieId": "filme1", "userId": "usuario1", "seatNumber": 10, "price": 20, "showtime": ""}`  
   **Verificação:** Confirmar que a resposta indica um erro devido ao campo `showtime` vazio.
 
+
+  ### **Caso de Teste CF9.10 \- Cenário de Erro: `movieId` e `userId` Inválidos**
+
+**Descrição: Tentar criar um ticket com `movieId` e `userId` inválidos (valores não permitidos como um único ponto `.`).**
+
+#### **Passos:**
+
+1. **Enviar uma solicitação POST para o endpoint `/tickets` com `movieId` inválido (um ponto) e `userId` inválido (um ponto).**
+
+**Request Body:**
+
+**json**  
+**Copiar código**  
+**`{`**  
+  **`"movieId": ".",`**  
+  **`"userId": ".",`**  
+  **`"seatNumber": 10,`**  
+  **`"price": 50,`**  
+  **`"showtime": "2024-08-31T19:00:00Z"`**  
+**`}`**
+
+**Resultado Esperado:**
+
+* **Check Status Code: `400 Bad Request`**  
+* **Resposta: A requisição deve falhar com uma mensagem indicando que tanto o `movieId` quanto o `userId` são inválidos.**
+
+**Response Body:**
+
+**json**  
+**Copiar código**  
+**`{`**  
+  **`"error": "ID do filme inválido. ID do usuário inválido."`**  
+**`}`**
+
+
+### **Caso de Teste CF9.11 \- Cenário de Erro: Duplicação de Ticket**
+
+**Descrição: Tentar criar dois tickets idênticos (mesmo `movieId`, `userId`, `seatNumber` e `showtime`).**
+
+#### **Passos:**
+
+1. **Enviar uma solicitação POST para o endpoint `/tickets` com os dados do ticket.**  
+2. **Enviar outra solicitação POST idêntica para o mesmo endpoint `/tickets`.**
+
+**Request Body:**
+
+**json**  
+**Copiar código**  
+**`{`**  
+  **`"movieId": "abc123",`**  
+  **`"userId": "user456",`**  
+  **`"seatNumber": 10,`**  
+  **`"price": 50,`**  
+  **`"showtime": "2024-08-31T19:00:00Z"`**  
+**`}`**
+
+**Resultado Esperado:**
+
+* **Primeira Requisição:**  
+  * **Check Status Code: `201 Created`**  
+  * **Resposta: O ticket deve ser criado com sucesso.**  
+* **Segunda Requisição:**  
+  * **Check Status Code: `400 Bad Request`**  
+  * **Resposta: A segunda requisição deve falhar com uma mensagem indicando que o ticket já foi criado.**
+
+**Response Body para a Segunda Requisição:**
+
+**json**  
+**Copiar código**  
+**`{`**  
+  **`"error": "Ticket já foi reservado para esse assento e horário."`**  
+**`}`**
+
 ---
 
 ### Cenário CF10 - Consultar Todos os Ingressos 
@@ -1210,6 +1283,39 @@ Exemplo: "2024-08-31T19:00:00Z"
   "error": "Ingresso não encontrado."
 }
 ```
+
+### **Caso de Teste CF13.9 \- Cenário de Erro: `movieId` e `userId` Inválidos**
+
+**Descrição: Tentar atualizar um ticket existente com `movieId` e `userId` inválidos (valores não permitidos como um único ponto `.`).**
+
+#### **Passos:**
+
+1. **Enviar uma solicitação `PUT` para o endpoint `/tickets/{ticketId}` com `movieId` inválido (um ponto) e `userId` inválido (um ponto).**
+
+**Request Body:**
+
+**json**  
+**Copiar código**  
+**`{`**  
+  **`"movieId": ".",`**  
+  **`"userId": ".",`**  
+  **`"seatNumber": 10,`**  
+  **`"price": 50,`**  
+  **`"showtime": "2024-08-31T19:00:00Z"`**  
+**`}`**
+
+**Resultado Esperado:**
+
+* **Check Status Code: `400 Bad Request`**  
+* **Resposta: A requisição deve falhar com uma mensagem indicando que tanto o `movieId` quanto o `userId` são inválidos.**
+
+**Response Body:**
+
+**json**  
+**Copiar código**  
+**`{`**  
+  **`"error": "ID do filme inválido. ID do usuário inválido."`**  
+**`}`**
 
 ---
 

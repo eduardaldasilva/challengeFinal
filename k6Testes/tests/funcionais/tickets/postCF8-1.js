@@ -20,10 +20,11 @@ export default function () {
     const res = baseRest.post(ENDPOINTS.TICKETS_ENDPOINT, body);
 
     baseChecks.checkStatusCode(res, 201);
-    baseChecks.checkFilmeTitulo(res);  
-    baseChecks.checkFilmeDescricao(res); 
-    baseChecks.checklaunchdate(res);  
-    baseChecks.checkshowtimes(res); 
+    baseChecks.checkMovieId(res);
+    baseChecks.checkPrice(res);
+    baseChecks.checkshowtime(res);
+    baseChecks.checkAssento(res);
+    baseChecks.checkTicketId(res);
     baseChecks.checkId(res); 
 
     console.log(res.body)

@@ -31,10 +31,11 @@ export default function (data) {
     const res = baseRest.get(ENDPOINTS.TICKETS_ENDPOINT + `/${id}`)
     
     baseChecks.checkStatusCode(res, 200);
-    baseChecks.checkFilmeTitulo(res);  
-    baseChecks.checkFilmeDescricao(res); 
-    baseChecks.checklaunchdate(res);  
-    baseChecks.checkshowtimes(res); 
+    baseChecks.checkMovieId(res);
+    baseChecks.checkPrice(res);
+    baseChecks.checkshowtime(res);
+    baseChecks.checkAssento(res);
+    baseChecks.checkTicketId(res);
     baseChecks.checkId(res); 
 
     console.log(res.body)
