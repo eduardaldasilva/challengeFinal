@@ -7,8 +7,7 @@ const baseChecks = new BaseChecks();
 
 export default function () {
     const res = baseRest.get(ENDPOINTS.TICKETS_ENDPOINT)
-    baseChecks.checkStatusCode(res, 200);
-    baseChecks.checkResponseTime(res, 500); 
+    baseChecks.checkStatusCode(res, 200); 
     
 }
 

@@ -45,89 +45,88 @@ Esses testes verificam o desempenho da API em situações como de estresse, pico
 ---
 #### Testes individuais:
 
-##### Smoke (Teste de fumaça)- CT12: 
+##### Smoke (Teste de fumaça)- CP1: 
 
 Ver se a API está operando de acordo, com um número pequeno de Usuários.
 
 
 
-- CT12.1 - GET/movies/{id}
-- CT12.2 - GET/tickets/{id}
-- CT12.3 - **Fluxo usuário comum:** GET/movies, POST/tickets, PUT/tickets e GET/tickets/{id}
-- CT12.4 - **Fluxo usuário administrador:** POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies
-
+- CP1.1 - GET/movies/{id}
+- CP1.2 - GET/tickets
+- CP1.3 - POST/tickets
+- **Fluxo** POST/movies, GET/movies, GET/movies/{id}, PUT/movies/{id}, POST/tickets, GET/tickets, e DELETE/movies/{id}
 ```
   smoke: {
             vus: 3, // pequeno número de usuarios
-            duration: '1m', // curto periodo de tempo
+            duration: '20s', // curto periodo de tempo
 }
 ```
 
-##### Spike (Teste de pico) - CT13: 
+##### Spike (Teste de pico) - CP2: 
 
 Simular a API em uma situação de pico, com muitos usuários acessando ao mesmo tempo, portanto, usando stages.
 
-- CT13.1 - GET/movies
-- CT13.2 - GET/tickets
-- CT13.3 - **Fluxo usuário comum:** GET/movies, POST/tickets, PUT/tickets e GET/tickets/{id}
-- CT13.4 - **Fluxo usuário administrador:** POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies
+- CP2.1 - GET/movies
+- CP2.2 - GET/tickets
+- CP2.3 - POST/tickets
+- **Fluxo** POST/movies, GET/movies, GET/movies/{id}, PUT/movies/{id}, POST/tickets, GET/tickets, e DELETE/movies/{id}
 
 ```
 stages: [
     { duration: '2m', target: 2000 }, // fazer um ramp-up para 2000 vus
-    { duration: '1m', target: 0 }, // e então um ramp-down para 0 vus
+    { duration: '30s', target: 0 }, // e então um ramp-down para 0 vus
   ],
 ```
 
-##### Load (Teste de carga)- CT14:
+##### Load (Teste de carga)- CP3:
 
 Testar a API  com o número esperado em um dia comum de usuarios.
 
-- CT14.1 - PUT/movies/{id}
-- CT14.2 -PUT/tickets/{id}
-- CT14.3 -**Fluxo usuário comum:** GET/movies, POST/tickets, PUT/tickets e GET/tickets/{id}
-- CT14.4 -**Fluxo usuário administrador:** POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies
+- CP3.1 - PUT/movies/{id}
+- CP3.2 - GET/tickets
+- CP3.3 - POST/tickets
+- **Fluxo** POST/movies, GET/movies, GET/movies/{id}, PUT/movies/{id}, POST/tickets, GET/tickets, e DELETE/movies/{id}
 
 ```
 stages: [
-                { duration: '3m', target: 100 },
-                { duration: '5m', target: 100 },
-                { duration: '3m', target: 0 },
+                { duration: '1m', target: 100 },
+                { duration: '4m', target: 100 },
+                { duration: '1m', target: 0 },
             ]
 ```
 
-##### Stress (Teste de estresse) - CT15:
+##### Stress (Teste de estresse) - CP4:
 
 Testar a API com um número 100% maior de vus do que o teste de carga.
 
-- CT15.1 - DELETE/movies/{id}
-- CT15.2 - DELETE/tickets/{id}
-- CT15.3 - **Fluxo usuário comum:** GET/movies, POST/tickets, PUT/tickets e GET/tickets/{id}
-- CT15.4 - **Fluxo usuário administrador:** POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies
+- CP4.1 - DELETE/movies/{id}
+- CP4.2 - GET/tickets
+- CP4.3 - POST/tickets
+- **Fluxo** POST/movies, GET/movies, GET/movies/{id}, PUT/movies/{id}, POST/tickets, GET/tickets, e DELETE/movies/{id}
 
 ```
  stages: [
-                { duration: '3m', target: 200 },
-                { duration: '5m', target: 200 },
-                { duration: '3m', target: 0 },
+                { duration: '1m', target: 200 },
+                { duration: '4m', target: 200 },
+                { duration: '1m', target: 0 },
             ],
 ```
 
 
-##### Soak (Teste de resitência) - CT16:
+##### Soak (Teste de resitência) - CP5:
 
 Testa a API por um tempo mais prolongado, mas com os mesmos vus e ramp-up e ramp-down do teste de carga.
 
 - CT16.1 - POST/movies
-- CT16.2 - POST/tickets
-- CT16.3 - **Fluxo usuário comum:** GET/movies, POST/tickets, PUT/tickets e GET/tickets/{id}
-- CT16.4 - **Fluxo usuário administrador:** POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies
+- CP5.2 - GET/tickets
+- CP5.3 - POST/tickets
+- **Fluxo** POST/movies, GET/movies, GET/movies/{id}, PUT/movies/{id}, POST/tickets, GET/tickets, e DELETE/movies/{id}
 
 ```
 stages: [
-                { duration: '3m', target: 100 },
-                { duration: '10m', target: 100 },
-                { duration: '3m', target: 0 },
+                { duration: '1m', target: 100 },
+                { duration: '8m', target: 100 },
+                { duration: '1m', target: 0 },
             ]
 ```
 
