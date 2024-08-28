@@ -1,8 +1,7 @@
 // Caso de Teste CF9.1 - POST - Criar ticket com assento inválido
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
-import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
-import { SharedArray } from 'k6/data';
+
 
 export const options = testConfig.options.one;
 const base_uri = testConfig.environment.hml.url;
@@ -60,10 +59,3 @@ console.log(`Status Code: ${res1.status}`);
 }
 
 
-// Listando e fazendo limpeza
-
-export function teardown(data) {
-    const res = baseRest.get(ENDPOINTS.TICKETS_ENDPOINT);
-    const res1 = baseRest.get(ENDPOINTS.TICKETS_ENDPOINT);
-    
-}

@@ -1,6 +1,7 @@
 // Caso de Teste CF9.1 - GET - Listar todos os tickets
 
-import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js'
+import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
+
 
 export const options = testConfig.options.one;
 

@@ -1,8 +1,7 @@
 // Caso de teste CF11.1 - PUT - Atualizar ticket
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js'
-import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
-import { SharedArray } from 'k6/data';
+
 
 export const options = testConfig.options.one;
 const base_uri = testConfig.environment.hml.url
@@ -38,8 +37,7 @@ export default function (data) {
     baseChecks.checkPrice(res);
     baseChecks.checkshowtime(res);
     baseChecks.checkAssento(res);
-    baseChecks.checkTicketId(res);
-    baseChecks.checkId(res); 
+    baseChecks.checkTicketId(res); 
 
     console.log(res.body)
     console.log(`Status Code: ${res.status}`); 

@@ -89,6 +89,7 @@ export class BaseChecks {
         });
     }
 
+
     checkAssento(response) {
         check(response, {
             'Campo assento presente': (r) => {

@@ -1,8 +1,7 @@
 // Caso de Teste CF8.1 - POST - Criar ticket
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
-import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
-import { SharedArray } from 'k6/data';
+
 
 export const options = testConfig.options.one;
 const base_uri = testConfig.environment.hml.url;
@@ -30,14 +29,4 @@ export default function () {
     console.log(res.body)
     console.log(`Status Code: ${res.status}`); 
     
-}
-
-
-// Listando e fazendo limpeza
-
-export function teardown(data) {
-    const res = baseRest.get(ENDPOINTS.TICKETS_ENDPOINT);
-    console.log('Request URL:', base_uri + ENDPOINTS.TICKETS_ENDPOINT);
-    console.log('Response status:', res.status);
-    console.log('Response body:', res.body);
 }

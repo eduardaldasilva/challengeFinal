@@ -1,8 +1,6 @@
 // Caso de Teste CF6.6 - PUT - Atualizar com campos vazios
 
 import { BaseRest, BaseChecks, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
-import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
-import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 

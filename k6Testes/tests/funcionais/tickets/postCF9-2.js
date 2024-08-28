@@ -1,8 +1,7 @@
-// Caso de Teste CF9.1 - POST - Criar ticket com assento inválido
+// Caso de Teste CF9.1 - POST - Criar ticket com preço inválido
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
-import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
-import { SharedArray } from 'k6/data';
+
 
 export const options = testConfig.options.one;
 const base_uri = testConfig.environment.hml.url;
@@ -20,7 +19,7 @@ const tickets = new SharedArray('tickets', function () {
             "movieId": "string",
             "userId": "string",
             "seatNumber": 65, 
-            "price": 60,
+            "price": 60, // entre 0 e 60
             "showtime": "2024-08-31T19:00:00Z"
           }
         const res = baseRest.post(ENDPOINTS.TICKETS_ENDPOINT, payload);
@@ -40,7 +39,7 @@ const tickets = new SharedArray('tickets', function () {
         "movieId": "string",
         "userId": "string",
         "seatNumber": 66, 
-        "price": 0,
+        "price": 0, // entre 0 e 60
         "showtime": "2024-08-31T19:00:00Z"
       }
     const res1 = baseRest.post(ENDPOINTS.TICKETS_ENDPOINT, payload1);
@@ -59,11 +58,3 @@ console.log(`Status Code: ${res1.status}`);
     
 }
 
-
-// Listando e fazendo limpeza
-
-export function teardown(data) {
-    const res = baseRest.get(ENDPOINTS.TICKETS_ENDPOINT);
-    const res1 = baseRest.get(ENDPOINTS.TICKETS_ENDPOINT);
-    
-}
