@@ -34,31 +34,28 @@
 
 ## Testes não funcionais:
 
-| TESTE                             | ENDPOINT                | HTTP VERBO | REQUISITOS                                    | CHECKS                                    |
-|-----------------------------------|-------------------------|------------|-----------------------------------------------|-------------------------------------------|
-| **Smoke (Teste de fumaça) - CT12**    |                         |            |                                               |                                           |
-| CT12.1                            | /movies/{id}            | GET        | Verificar operação básica com poucos usuários | `checkStatusCode`, `checkResponseTime`, `checkIDPresence` |
-| CT12.2                            | /tickets/{id}           | GET        | Verificar operação básica com poucos usuários | `checkStatusCode`, `checkResponseTime`, `checkIDPresence` |
-| CT12.3                            | Fluxo usuário comum     | GET, POST, PUT | GET/movies, POST/tickets, PUT/tickets, GET/tickets/{id} | `checkStatusCode`, `checkResponseTime` |
-| CT12.4                            | Fluxo usuário administrador | POST, PUT, GET, DELETE | POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies | `checkStatusCode`, `checkResponseTime` |
-| **Spike (Teste de pico) - CT13**      |                         |            |                                               |                                           |
-| CT13.1                            | /movies                 | GET        | Simular alta carga com ramp-up e ramp-down   | `checkStatusCode`, `checkResponseTime` |
-| CT13.2                            | /tickets                | GET        | Simular alta carga com ramp-up e ramp-down   | `checkStatusCode`, `checkResponseTime` |
-| CT13.3                            | Fluxo usuário comum     | GET, POST, PUT | GET/movies, POST/tickets, PUT/tickets, GET/tickets/{id} | `checkStatusCode`, `checkResponseTime` |
-| CT13.4                            | Fluxo usuário administrador | POST, PUT, GET, DELETE | POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies | `checkStatusCode`, `checkResponseTime` |
-| **Load (Teste de carga) - CT14**       |                         |            |                                               |                                           |
-| CT14.1                            | /movies/{id}            | PUT        | Testar com número esperado de usuários        | `checkStatusCode`, `checkResponseTime` |
-| CT14.2                            | /tickets/{id}           | PUT        | Testar com número esperado de usuários        | `checkStatusCode`, `checkResponseTime` |
-| CT14.3                            | Fluxo usuário comum     | GET, POST, PUT | GET/movies, POST/tickets, PUT/tickets, GET/tickets/{id} | `checkStatusCode`, `checkResponseTime` |
-| CT14.4                            | Fluxo usuário administrador | POST, PUT, GET, DELETE | POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies | `checkStatusCode`, `checkResponseTime` |
-| **Stress (Teste de estresse) - CT15**  |                         |            |                                               |                                           |
-| CT15.1                            | /movies/{id}            | DELETE     | Testar com 100% mais de usuários do que o teste de carga | `checkStatusCode`, `checkResponseTime` |
-| CT15.2                            | /tickets/{id}           | DELETE     | Testar com 100% mais de usuários do que o teste de carga | `checkStatusCode`, `checkResponseTime` |
-| CT15.3                            | Fluxo usuário comum     | GET, POST, PUT | GET/movies, POST/tickets, PUT/tickets, GET/tickets/{id} | `checkStatusCode`, `checkResponseTime` |
-| CT15.4                            | Fluxo usuário administrador | POST, PUT, GET, DELETE | POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies | `checkStatusCode`, `checkResponseTime` |
-| **Soak (Teste de resistência) - CT16** |                         |            |                                               |                                           |
-| CT16.1                            | /movies                 | POST       | Testar por um período prolongado              | `checkStatusCode`, `checkResponseTime` |
-| CT16.2                            | /tickets                | POST       | Testar por um período prolongado              | `checkStatusCode`, `checkResponseTime` |
-| CT16.3                            | Fluxo usuário comum     | GET, POST, PUT | GET/movies, POST/tickets, PUT/tickets, GET/tickets/{id} | `checkStatusCode`, `checkResponseTime` |
-| CT16.4                            | Fluxo usuário administrador | POST, PUT, GET, DELETE | POST/movies, PUT/movies, GET/movies/{id}, DELETE/movies | `checkStatusCode`, `checkResponseTime` |
+
+
+| **ID do Caso de Teste** | **ENDPOINT**  | **HTTP VERBO** | **THRESHOLD** | **REQUISITOS**                                | **CHECKS**                                | **Tipo de Teste** | **Descrição**                                   |
+|-------------------------|---------------|----------------|---------------|-----------------------------------------------|-------------------------------------------|-------------------|-------------------------------------------------|
+| CP1.1                   | /movies/{id}   | GET            | p(95) < 50     | Tempo médio de resposta ≤ 50ms               | `checkStatusCode`, `checkResponseTime`, `checkIDPresence` | Smoke             | Verificar se a API está operando com poucos usuários |
+| CP1.2                   | /movies        | GET            | p(95) < 100    | Tempo médio de resposta ≤ 100ms              | `checkStatusCode`, `checkResponseTime`, `checkPagination` | Smoke             | Verificar se a API está operando com poucos usuários |
+| CP1.3                   | /movies        | POST           | p(95) < 200    | Tempo médio de resposta ≤ 200ms              | `checkStatusCode`, `checkResponseTime`    | Smoke             | Verificar se a API está operando com poucos usuários |
+| CP1.4                   | /movies/{id}   | PUT            | p(95) < 300    | Tempo médio de resposta ≤ 300ms              | `checkStatusCode`, `checkResponseTime`    | Smoke             | Verificar se a API está operando com poucos usuários |
+| CP1.5                   | /movies/{id}   | DELETE         | p(95) < 400    | Tempo médio de resposta ≤ 400ms              | `checkStatusCode`, `checkResponseTime`    | Smoke             | Verificar se a API está operando com poucos usuários |
+| CP2.1                   | /tickets       | GET            | p(95) < 1000   | Tempo médio de resposta ≤ 1000ms             | `checkStatusCode`, `checkResponseTime`    | Spike             | Simular pico de carga com muitos usuários      |
+| CP2.2                   | /tickets       | POST           | p(95) < 300    | Tempo médio de resposta ≤ 300ms              | `checkStatusCode`, `checkResponseTime`    | Spike             | Simular pico de carga com muitos usuários      |
+| CP2.3                   | /tickets/{id}  | GET            | p(95) < 100    | Tempo médio de resposta ≤ 100ms              | `checkStatusCode`, `checkResponseTime`, `checkIDPresence` | Spike             | Simular pico de carga com muitos usuários      |
+| CP2.4                   | /tickets/{id}  | PUT            | p(95) < 300    | Tempo médio de resposta ≤ 300ms              | `checkStatusCode`, `checkResponseTime`, `checkIDPresence` | Spike             | Simular pico de carga com muitos usuários      |
+| CP2.5                   | /tickets/{id}  | DELETE         | p(95) < 400    | Tempo médio de resposta ≤ 400ms              | `checkStatusCode`, `checkResponseTime`, `checkIDPresence` | Spike             | Simular pico de carga com muitos usuários      |
+| CP3.1                   | /movies/{id}   | PUT            | p(95) < 300    | Tempo médio de resposta ≤ 300ms              | `checkStatusCode`, `checkResponseTime`    | Load              | Testar a API com carga normal de usuários      |
+| CP3.2                   | /tickets       | GET            | p(95) < 1000   | Tempo médio de resposta ≤ 1000ms             | `checkStatusCode`, `checkResponseTime`    | Load              | Testar a API com carga normal de usuários      |
+| CP3.3                   | /tickets       | POST           | p(95) < 300    | Tempo médio de resposta ≤ 300ms              | `checkStatusCode`, `checkResponseTime`    | Load              | Testar a API com carga normal de usuários      |
+| CP4.1                   | /movies/{id}   | DELETE         | p(95) < 400    | Tempo médio de resposta ≤ 400ms              | `checkStatusCode`, `checkResponseTime`    | Stress            | Testar a API com carga 100% maior que o normal |
+| CP4.2                   | /tickets       | GET            | p(95) < 1000   | Tempo médio de resposta ≤ 1000ms             | `checkStatusCode`, `checkResponseTime`    | Stress            | Testar a API com carga 100% maior que o normal |
+| CP4.3                   | /tickets       | POST           | p(95) < 300    | Tempo médio de resposta ≤ 300ms              | `checkStatusCode`, `checkResponseTime`    | Stress            | Testar a API com carga 100% maior que o normal |
+| CP5.1                   | /movies        | POST           | p(95) < 200    | Tempo médio de resposta ≤ 200ms              | `checkStatusCode`, `checkResponseTime`    | Soak              | Testar a API por um tempo prolongado            |
+| CP5.2                   | /tickets       | GET            | p(95) < 1000   | Tempo médio de resposta ≤ 1000ms             | `checkStatusCode`, `checkResponseTime`    | Soak              | Testar a API por um tempo prolongado            |
+| CP5.3                   | /tickets       | POST           | p(95) < 300    | Tempo médio de resposta ≤ 300ms              | `checkStatusCode`, `checkResponseTime`    | Soak              | Testar a API por um tempo prolongado            |
+
 
