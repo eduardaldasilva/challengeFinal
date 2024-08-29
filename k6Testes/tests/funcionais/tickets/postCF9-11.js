@@ -1,6 +1,8 @@
 // Caso de Teste CF9.11 - POST - criar ticket duplicado
 
 import { BaseRest, BaseChecks, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
+import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 
@@ -21,12 +23,13 @@ export function setup() {
     const res = baseRest.post(ENDPOINTS.TICKETS_ENDPOINT, body);
     baseChecks.checkStatusCode(res, 201); // Verifica se a criação foi bem-sucedida
 
+   
     baseChecks.checkMovieId(res);  
     baseChecks.checkUserId(res); 
-    baseChecks.checkSeatNumber(res);  
+    baseChecks.checkAssento(res);  
     baseChecks.checkPrice(res); 
-    baseChecks.checkShowtime(res); 
-    baseChecks.checkTicketId(res); 
+    baseChecks.checkshowtime(res); 
+    baseChecks.checkTicketId(res);  
 
     console.log(res.body);
     console.log(`Status Code: ${res.status}`); 
@@ -42,9 +45,9 @@ export default function (data) {
 
     baseChecks.checkMovieId(res);  
     baseChecks.checkUserId(res); 
-    baseChecks.checkSeatNumber(res);  
+    baseChecks.checkAssento(res);  
     baseChecks.checkPrice(res); 
-    baseChecks.checkShowtime(res); 
+    baseChecks.checkshowtime(res); 
     baseChecks.checkTicketId(res); 
 
     console.log(res.body);

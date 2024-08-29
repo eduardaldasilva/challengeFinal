@@ -1,6 +1,8 @@
 // Caso de Trste CF12.1 - DELETE - Deletar ticket por ID
 
 import { BaseRest, BaseChecks, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
+import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { SharedArray } from 'k6/data';
 
 
 export const options = testConfig.options.one;

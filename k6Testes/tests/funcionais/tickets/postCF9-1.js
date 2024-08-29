@@ -1,7 +1,8 @@
 // Caso de Teste CF9.1 - POST - Criar ticket com assento inválido
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
-
+import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 const base_uri = testConfig.environment.hml.url;
@@ -38,7 +39,7 @@ const tickets = new SharedArray('tickets', function () {
     const payload1 = {
         "movieId": "string",
         "userId": "string",
-        "seatNumber": 0, // Ciando assento < 0
+        "seatNumber": -1, // Ciando assento < 0
         "price": 25,
         "showtime": "2024-08-31T19:00:00Z"
       }

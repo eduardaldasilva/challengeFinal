@@ -1,7 +1,8 @@
 // Caso de Teste CF9.1 - GET - Listar todos os tickets
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
-
+import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 
@@ -15,8 +16,7 @@ const baseChecks = new BaseChecks();
 export default function () {
     const res = baseRest.get(ENDPOINTS.TICKETS_ENDPOINT);
     console.log('Request URL:', base_uri + ENDPOINTS.TICKETS_ENDPOINT);
-    console.log('Response status:', res.status);
-    console.log('Response body:', res.body);
+
     
     baseChecks.checkStatusCode(res, 200);
     baseChecks.checkMovieId(res);
@@ -26,6 +26,5 @@ export default function () {
     baseChecks.checkTicketId(res);
     baseChecks.checkId(res); 
 
-    console.log(res.body)
     console.log(`Status Code: ${res.status}`); 
 }

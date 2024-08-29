@@ -7,64 +7,43 @@ export class BaseChecks {
         });
     }
     
-
-    checkResponseTime(response, expectedTime = 900) {
-        check(response, {
-            'Response time check': (r) => r.timings.duration < expectedTime,
-        });
-    }
-
     checkFilmeTitulo(response) {
         check(response, {
-            'Titulo presente': (r) => {
-                let json = r.json();
-                return Array.isArray(json) 
-                    ? json.every(item => item.hasOwnProperty('title'))
-                    : json.hasOwnProperty('title');
-            },
+            'Titulo presente': (r) => r.json().hasOwnProperty('title'),
         });
     }
 
     checkFilmeDescricao(response) {
         check(response, {
-            'Descrição presente': (r) => {
-                let json = r.json();
-                return Array.isArray(json)
-                    ? json.every(item => item.hasOwnProperty('description'))
-                    : json.hasOwnProperty('description');
-            },
+            'Descrição presente': (r) => r.json().hasOwnProperty('description'),
         });
     }
 
     checklaunchdate(response) {
         check(response, {
-            'Data de Estreia presente': (r) => {
-                let json = r.json();
-                return Array.isArray(json)
-                    ? json.every(item => item.hasOwnProperty('launchdate'))
-                    : json.hasOwnProperty('launchdate');
-            },
+            'Data de Estreia presente': (r) => r.json().hasOwnProperty('launchdate'),
         });
     }
 
     checkshowtimes(response) {
         check(response, {
-            'Data de exibição presente': (r) => {
-                let json = r.json();
-                return Array.isArray(json)
-                    ? json.every(item => item.hasOwnProperty('showtimes'))
-                    : json.hasOwnProperty('showtimes');
-            },
+            'Data de exibição presente': (r) => r.json().hasOwnProperty('showtimes'),
         });
     }
 
     checkId(response) {
         check(response, {
-            'Id presente': (r) => {
+            'Id presente': (r) => r.json().hasOwnProperty('_id'),
+        });
+    }
+
+    checkUserId(response) {
+        check(response, {
+            'Id do usuário presente': (r) => {
                 let json = r.json();
                 return Array.isArray(json)
-                    ? json.every(item => item.hasOwnProperty('_id'))
-                    : json.hasOwnProperty('_id');
+                    ? json.every(item => item.hasOwnProperty('userId'))
+                    : json.hasOwnProperty('userId');
             },
         });
     }
@@ -122,5 +101,14 @@ export class BaseChecks {
                     : json.hasOwnProperty('showtime');
             },
         });
+    }
+    checkTamanho(res, expectedCount = 20) {
+        const response = JSON.parse(res.body);
+    }
+
+    checkResponseTime(response, expectedTime = 900) {
+        check(response, {
+            'response time check': (r) => r.timings.duration < expectedTime,
+        })
     }
 }

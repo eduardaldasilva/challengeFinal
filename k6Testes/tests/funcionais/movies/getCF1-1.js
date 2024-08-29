@@ -1,6 +1,8 @@
 // Caso de Teste - CF1.1 - Listar filmes
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js'
+import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 

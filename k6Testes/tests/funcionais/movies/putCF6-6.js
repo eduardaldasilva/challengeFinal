@@ -1,6 +1,8 @@
 // Caso de Teste CF6.6 - PUT - Atualizar com campos vazios
 
 import { BaseRest, BaseChecks, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
+import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 
@@ -26,7 +28,6 @@ export function setup() {
 
 export default function (data) {
     const id = data.id;
-    const res = baseRest.put(ENDPOINTS.MOVIES_ENDPOINT + `/${id}`, body);
 
     const body = {
         "title": "",
@@ -34,6 +35,8 @@ export default function (data) {
         "launchdate": "",
         "showtimes": []
     };
+
+    const res = baseRest.put(ENDPOINTS.MOVIES_ENDPOINT + `/${id}`, body);
 
     
     console.log(res.body)

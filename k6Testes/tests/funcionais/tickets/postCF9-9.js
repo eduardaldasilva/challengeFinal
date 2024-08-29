@@ -1,6 +1,8 @@
 // Caso de Teste CF9.9 - POST - Campos vazios
 
 import { BaseRest, BaseChecks, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js';
+import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 
@@ -22,9 +24,9 @@ function testMovieIdEmpty() {
 
     baseChecks.checkStatusCode(res, 400);
     baseChecks.checkMovieId(res); 
-    baseChecks.checkSeatNumber(res);
+    baseChecks.checkAssento(res);
     baseChecks.checkPrice(res);
-    baseChecks.checkShowtime(res);
+    baseChecks.checkshowtime(res);
     baseChecks.checkTicketId(res); 
 
     
@@ -46,9 +48,9 @@ function testUserIdEmpty() {
 
     baseChecks.checkStatusCode(res, 400);
     baseChecks.checkMovieId(res);
-    baseChecks.checkSeatNumber(res);
+    baseChecks.checkAssento(res);
     baseChecks.checkPrice(res);
-    baseChecks.checkShowtime(res);
+    baseChecks.checkshowtime(res);
     baseChecks.checkTicketId(res); 
 
     console.log(res.body);
@@ -69,10 +71,10 @@ function testSeatNumberEmpty() {
 
     baseChecks.checkStatusCode(res, 400);
     baseChecks.checkMovieId(res);
-    baseChecks.checkSeatNumber(res); 
+    baseChecks.checkAssento(res);
     baseChecks.checkPrice(res);
-    baseChecks.checkShowtime(res);
-    baseChecks.checkTicketId(res); 
+    baseChecks.checkshowtime(res);
+    baseChecks.checkTicketId(res);
 
     console.log(res.body);
     console.log(`Status Code: ${res.status}`);
@@ -92,10 +94,10 @@ function testPriceEmpty() {
 
     baseChecks.checkStatusCode(res, 400);
     baseChecks.checkMovieId(res);
-    baseChecks.checkSeatNumber(res);
-    baseChecks.checkPrice(res); 
-    baseChecks.checkShowtime(res);
-    baseChecks.checkTicketId(res); 
+    baseChecks.checkAssento(res);
+    baseChecks.checkPrice(res);
+    baseChecks.checkshowtime(res);
+    baseChecks.checkTicketId(res);
 
     console.log(res.body);
     console.log(`Status Code: ${res.status}`);
@@ -115,10 +117,10 @@ function testShowtimeEmpty() {
 
     baseChecks.checkStatusCode(res, 400);
     baseChecks.checkMovieId(res);
-    baseChecks.checkSeatNumber(res);
+    baseChecks.checkAssento(res);
     baseChecks.checkPrice(res);
-    baseChecks.checkShowtime(res); 
-    baseChecks.checkTicketId(res); 
+    baseChecks.checkshowtime(res);
+    baseChecks.checkTicketId(res);
 
     console.log(res.body);
     console.log(`Status Code: ${res.status}`);

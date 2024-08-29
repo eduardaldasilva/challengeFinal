@@ -1,6 +1,8 @@
 // Caso de Teste CF5.2 - PUT - Atualizar com ID inexistente e inválido
 
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js'
+import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { SharedArray } from 'k6/data';
 
 export const options = testConfig.options.one;
 const base_uri = testConfig.environment.hml.url
@@ -13,11 +15,12 @@ export default function (data) {
 
     const res = baseRest.put(ENDPOINTS.MOVIES_ENDPOINT + `.`)
     baseChecks.checkStatusCode(res, 404); 
+    
+    baseChecks.checkId(res); 
     baseChecks.checkFilmeTitulo(res);  
     baseChecks.checkFilmeDescricao(res); 
     baseChecks.checklaunchdate(res);  
     baseChecks.checkshowtimes(res); 
-    baseChecks.checkId(res); 
 
     console.log(`Status Code: ${res.status}`); 
     console.log(res.body)
