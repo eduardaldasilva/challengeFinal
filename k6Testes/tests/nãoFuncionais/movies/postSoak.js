@@ -1,3 +1,5 @@
+// Teste de resistẽmcia - POST
+
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/base/baseTest.js'
 import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
 import { SharedArray } from 'k6/data';
@@ -8,7 +10,7 @@ const base_uri = testConfig.environment.hml.url;
 const baseRest = new BaseRest(base_uri);
 const baseChecks = new BaseChecks();
 
-// Carregar dados de filmes uma vez e reutilizar
+// Carregar dados de filmes a partir do arquivo JSON
 const filmes = new SharedArray('movies', function () {
     return JSON.parse(open('../../../data/dynamic/movies.json'));
 });

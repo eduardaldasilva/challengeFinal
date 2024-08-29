@@ -1,14 +1,15 @@
+// Fluxo Smoke
+
 import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../support/base/baseTest.js';
 import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
 import { SharedArray } from 'k6/data';
 
-// Configuração do teste
 export const options = testConfig.options.smoke;
 const base_uri = testConfig.environment.hml.url;
 const baseRest = new BaseRest(base_uri);
 const baseChecks = new BaseChecks();
 
-// Carregar dados de filmes e tickets de arquivos JSON
+// Carregar dados de filmes e tickets
 const movies = new SharedArray('movies', function () {
   return JSON.parse(open('../../data/dynamic/movies.json'));
 });
