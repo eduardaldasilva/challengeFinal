@@ -73,7 +73,7 @@ Simular a API em uma situação de pico, com muitos usuários acessando ao mesmo
 
 ```
 stages: [
-    { duration: '2m', target: 2000 }, // fazer um ramp-up para 2000 vus
+    { duration: '2m', target: 400 }, // fazer um ramp-up para 2000 vus
     { duration: '30s', target: 0 }, // e então um ramp-down para 0 vus
   ],
 ```
@@ -90,7 +90,7 @@ Testar a API  com o número esperado em um dia comum de usuarios.
 ```
 stages: [
                 { duration: '1m', target: 100 },
-                { duration: '4m', target: 100 },
+                { duration: '2m', target: 100 },
                 { duration: '1m', target: 0 },
             ]
 ```
@@ -107,7 +107,7 @@ Testar a API com um número 100% maior de vus do que o teste de carga.
 ```
  stages: [
                 { duration: '1m', target: 200 },
-                { duration: '4m', target: 200 },
+                { duration: '2m', target: 200 },
                 { duration: '1m', target: 0 },
             ],
 ```
@@ -125,7 +125,7 @@ Testa a API por um tempo mais prolongado, mas com os mesmos vus e ramp-up e ramp
 ```
 stages: [
                 { duration: '1m', target: 100 },
-                { duration: '8m', target: 100 },
+                { duration: '4m', target: 100 },
                 { duration: '1m', target: 0 },
             ]
 ```
