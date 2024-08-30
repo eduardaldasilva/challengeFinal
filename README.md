@@ -1,28 +1,27 @@
 
 # Challenge Final - Programa de Bolsas Compass.Uol
 
-![Logo Compass]()  
+![Logo Compass](link_da_logo)  
 
-Este repositório é referente aos testes realizados, tanto funcionais quanto não funcionais, na API Cinema a partir das user stories fornecidas e da documentação Swagger da API. A API tem como função realizar operações CRUD (Criar, Ler, Atualizar, Deletar) para filmes e tickets.
+Este repositório é dedicado aos testes funcionais e não funcionais realizados na API Cinema, baseada nas user stories fornecidas e na documentação Swagger da API. A API permite realizar operações CRUD (Criar, Ler, Atualizar, Deletar) para filmes e ingressos.
 
 [Documentos do Challenge](challengeDocs)  
 [Testes do Challenge](k6Testes)
 
 ## Navegando pelo Repositório
 
-Para navegar pelos repositórios, siga as instruções abaixo:
-
-## Descrição do Projeto
+### Descrição do Projeto
 
 - **Data de Início:** 19/08/2024
 - **Data da Apresentação Final:** 30/08/2024
 
-A organização dos passos necessários foi feita no Jira e também está documentado o relatório de testes executados, se passaram ou não pelos requisitos e métricas estabelecidos, e, no segundo caso, seus respectivos relatórios de bugs.
+Os passos necessários foram organizados no Jira e documentados no relatório de testes executados. Este relatório inclui informações sobre a execução dos testes, a conformidade com os requisitos e métricas estabelecidos, e, quando aplicável, os relatórios de bugs.
 
-Utilizando a documentação da API no Swagger, foi criado o seguinte mapa mental para auxiliar na visualização dos status codes e respostas esperadas:
+Para auxiliar na visualização dos status codes e respostas esperadas, foi criado um mapa mental. Abaixo estão os links e a imagem para sua referência:
 
 - [Mapa Mental XMind](https://github.com/eduardaldasilva/challengeFinal/blob/main/Assets/API%20Cinema.xmind)
-- ![Mapa Mental](Assets/mapaMental.png)
+
+![Mapa Mental](Assets/mapaMental.png)
 
 ### Histórias de Usuário
 
@@ -31,7 +30,7 @@ Utilizando a documentação da API no Swagger, foi criado o seguinte mapa mental
 
 ### Planejamento de Testes
 
-Os testes foram planejados considerando os cenários Funcionais e Não Funcionais:
+Os testes foram planejados considerando cenários Funcionais e Não Funcionais:
 
 - [Planejamento de Testes](challengeDocs/planoTestes/planejamentoTestes.md)
 - [Plano de Testes Funcionais](challengeDocs/planoTestes/planejamentoFuncional.md)
@@ -39,7 +38,7 @@ Os testes foram planejados considerando os cenários Funcionais e Não Funcionai
 
 ### Matriz de Rastreabilidade
 
-Para melhor localização dos Casos de Teste:
+Para localização dos Casos de Teste:
 
 - [Matriz de Rastreabilidade](challengeDocs/matrizRastreabilidade.md)
 
@@ -49,7 +48,7 @@ Para melhor localização dos Casos de Teste:
 
 ### 1. Instale o VS Code
 
-O [Visual Studio Code (VS Code)](https://code.visualstudio.com/) é um editor de código-fonte leve e poderoso. Para instalar:
+O [Visual Studio Code (VS Code)](https://code.visualstudio.com/) é um editor de código-fonte leve e poderoso. Para instalá-lo:
 
 - **Windows:** Baixe e execute o instalador a partir do site oficial.
 - **macOS:** Baixe o instalador e arraste o VS Code para a pasta Aplicativos.
@@ -82,7 +81,7 @@ Se necessário, baixe e instale a partir do site oficial.
 
 ### 4. Instale o K6
 
-O K6 é uma ferramenta de teste de carga open-source que permite testar o desempenho de suas aplicações e APIs. Para mais informações, consulte a [documentação oficial do K6](https://k6.io/docs/).
+O K6 é uma ferramenta de teste de carga open-source. Para mais informações, consulte a [documentação oficial do K6](https://k6.io/docs/).
 
 Instale o K6 conforme o seu sistema operacional:
 
@@ -132,7 +131,7 @@ Abra o VS Code e selecione **File > Open Folder**. Navegue até a pasta `k6Teste
   npm run start
   ```
 
-  **Nota:** Se você estiver usando a AWS EC2 ou outro ambiente remoto para rodar os testes, verifique se o arquivo de configuração `environment.js` está apontando para a URL da sua instância EC2. Caso contrário, altere a URL para [http://localhost:3000](http://localhost:3000) para testes locais.
+  **Nota:** Se você estiver usando a AWS EC2 ou outro ambiente remoto para rodar os testes, ajuste a URL do ambiente no arquivo de configuração `environment.js` para a URL da sua instância EC2. Caso contrário, altere a URL para [http://localhost:3000](http://localhost:3000) para testes locais.
 
 ### 7. Execute os Scripts de Teste
 
@@ -144,7 +143,7 @@ k6 run nomeDoTeste.js
 
 Substitua `nomeDoTeste.js` pelo nome do script que você deseja executar.
 
-Para gerar o HTML com o relatório dos testes, utilize o próprio recurso de relatório do K6 com o seguinte comando:
+Para gerar um relatório em HTML, use o seguinte comando:
 
 ```bash
 K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=html-report.html k6 run nomeDoTeste.js
@@ -186,13 +185,13 @@ Isso criará um arquivo HTML com o relatório dos testes enquanto eles são exec
 
 **Eduarda Lazzaretti da Silva**
 
-Tenho 20 anos, sou estudante do 3º período de Ciência da Computação na Universidade Federal da Fronteira Sul, Campus Chapecó - SC. Participo do Programa de Bolsas AWS for Software Quality & Test Automation da Compass.Uol desde 06/05/2024. Durante o programa, adquiri muitos conhecimentos em testes e, neste repositório, está documentada uma parte desse aprendizado, com foco em testes realizados no K6.
+Tenho 20 anos e sou estudante do 3º período de Ciência da Computação na Universidade Federal da Fronteira Sul, Campus Chapecó - SC. Participo do Programa de Bolsas AWS for Software Quality & Test Automation da Compass.Uol desde 06/05/2024. Durante o programa, adquiri muitos conhecimentos em testes e, neste repositório, está documentada uma parte desse aprendizado, com foco em testes realizados no K6.
 
 ### Agradecimentos
 
-Por fim, agradeço a Daniela Maffi, Matheus Domingos Locatelli e Luize Carreira Gusmao por nos direcionarem tão bem durante esses últimos meses.
+Agradeço a Daniela Maffi, Matheus Domingos Locatelli e Luize Carreira Gusmao por sua orientação durante esses últimos meses.
 
-E aos meus colegas, que todos ao seu modo me ajudaram nas dificuldades durante as sprints, deixo aqui um agradecimento final:
+E aos meus colegas, que me ajudaram durante as sprints, deixo aqui um agradecimento especial:
 
 Daniel de Queiroz, Ricardo Neckel, Edgar Lutterbach, Kauê Ruchinski, Victoria Valicell, Beatriz Bicalho, Letícia Barbosa, Davi Santana, Gabriel Just, Mathias Fischer, Jorge Carvalho, Isabelle Vimercat, Oliver Almeida, Gabriel Knust, Enzo Rossi, Alline Lopes e Vitor Belger.
 
