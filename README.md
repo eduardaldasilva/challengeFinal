@@ -1,14 +1,27 @@
 
 # Challenge Final - Programa de Bolsas Compass.Uol
 
-![Logo Compass](link_da_logo)  
-
 Este repositório é dedicado aos testes funcionais e não funcionais realizados na API Cinema, baseada nas user stories fornecidas e na documentação Swagger da API. A API permite realizar operações CRUD (Criar, Ler, Atualizar, Deletar) para filmes e ingressos.
 
 [Documentos do Challenge](challengeDocs)  
 [Testes do Challenge](k6Testes)
 
-## Navegando pelo Repositório
+# Documentação do Projeto
+
+Este repositório contém a documentação e os relatórios do projeto. Abaixo estão os links para acessar os diferentes documentos e relatórios:
+
+## Relatórios de Bugs e Melhorias
+- [Relatório de Bugs e Melhorias](challengeDocs/reportsBugs.md)
+
+## Resultados Funcionais
+- [Resultados Funcionais](challengeDocs/resultadosFuncionais.md)
+
+## Resultados Não Funcionais
+- [Resultados Não Funcionais](challengeDocs/resultadosNaoFuncional.md)
+
+## Plano de Testes
+- [Plano de Testes](challengeDocs/planoTestes.md)
+
 
 ### Descrição do Projeto
 
@@ -181,11 +194,16 @@ Isso criará um arquivo HTML com o relatório dos testes enquanto eles são exec
 
 ---
 
+- Considerações: tanto as user Stories quanto o Swagger tinham melhorias e falhas que não batiam com o comportamento da API, e estão reportados no relatório de BUGS e MELHoRIAS.
+
+
 ## Sobre a Autora
 
 **Eduarda Lazzaretti da Silva**
 
 Tenho 20 anos e sou estudante do 3º período de Ciência da Computação na Universidade Federal da Fronteira Sul, Campus Chapecó - SC. Participo do Programa de Bolsas AWS for Software Quality & Test Automation da Compass.Uol desde 06/05/2024. Durante o programa, adquiri muitos conhecimentos em testes e, neste repositório, está documentada uma parte desse aprendizado, com foco em testes realizados no K6.
+
+- email: contatoeduardadasilva@gamil.com
 
 ### Agradecimentos
 

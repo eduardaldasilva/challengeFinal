@@ -1,7 +1,7 @@
 export const testConfig = {
     environment: {
         hml: {
-            url: "http://18.208.202.73:3000"
+            url: "http://localhost:3000"
         }
     },
 

@@ -1,6 +1,9 @@
 
 # 📊 REPORT DE BUGS E MELHORIAS - API Cinema
 
+
+## FUNCIONAIS:
+
 | Caso de Teste | Status | Imagens | Resultado Obtido |
 |---------------|--------|---------|------------------|
 | CF2#1         | 🔴      | <img src="../challengeDocs/reportsFuncionaisMovies/postCF2-1.png" width="200" height="200"> | /movies - Bug: POST retornou status code 201, mas não retornou o ID no corpo da resposta. |
@@ -18,3 +21,28 @@
 | CF11#1        | 🔴      | <img src="../challengeDocs/reportsFuncinaisTickets/getIDCF11-1.png" width="200" height="200"> | /tickets - Bug: GET/ID deu falha no sistema. |
 | CF12#1        | 🔴      | <img src="../challengeDocs/reportsFuncionaisMovies/putCF12-1.png" width="200" height="200"> | /tickets - Bug: PUT/ID deu falha no sistema. |
 | CF13#1        | 🔴      | <img src="../challengeDocs/reportsFuncinaisTickets/deleteCF13-1.png" width="200" height="200"> | /tickets - Bug: DELETE/ID deu falha no sistema. |
+
+
+## NÃO FUNINCIONAIS:
+
+- Smoke (Teste de Fumaça) - CP1
+CP1.1: O tempo médio de resposta para GET/movies/{id} excedeu 2000 milissegundos, com um tempo médio de 1.17s.
+CP1.3: O teste para POST/tickets falhou em processar a quantidade requerida de solicitações por segundo e também não atendeu ao limite de tempo médio de resposta de 300 milissegundos.
+Fluxo Completo: Houve um problema com o código de status esperado. 38 requisições retornaram status 200 em vez de 201, levando a uma taxa de sucesso de 65%.
+
+---
+
+- Spike (Teste de Pico) - CP2
+
+CP2.1: Falhou na paginação de resultados para GET/movies e não atendeu ao requisito de resposta em menos de 100 milissegundos.
+CP2.3: O teste para POST/tickets não conseguiu processar a quantidade esperada de solicitações por segundo e excedeu o limite de tempo de resposta de 300 milissegundos.
+
+---
+- Load (Teste de Carga) - CP3
+CP3.1: O teste para PUT/movies/{id} falhou em processar a quantidade esperada de solicitações por segundo e excedeu o tempo médio de resposta de 300 milissegundos.
+
+---
+
+- Stress (Teste de Estresse) - CP4
+CP4.1: O teste para DELETE/movies/{id} não conseguiu processar a quantidade esperada de solicitações por segundo e excedeu o tempo médio de resposta de 400 milissegundos.
+CP4.3: O teste para POST/tickets não atendeu ao requisito de processar 50 solicitações por segundo e excedeu o tempo médio de resposta de 300 milissegundos.
