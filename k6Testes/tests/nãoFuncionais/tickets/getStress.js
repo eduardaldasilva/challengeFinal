@@ -4,13 +4,13 @@ import { BaseChecks, BaseRest, ENDPOINTS, testConfig } from '../../../support/ba
 import { randomItem } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
 import { SharedArray } from 'k6/data';
 
-export const options = testConfig.options.spike;
+export const options = testConfig.options.stress;
 const base_uri = testConfig.environment.hml.url
 const baseRest = new BaseRest(base_uri);
 const baseChecks = new BaseChecks();
 
 const tickets = new SharedArray('tickets', function () {
-    return JSON.parse(open('../../data/dynamic/tickets.json'));
+    return JSON.parse(open('../../../data/dynamic/tickets.json'));
   });
 
 // Criando tickeet

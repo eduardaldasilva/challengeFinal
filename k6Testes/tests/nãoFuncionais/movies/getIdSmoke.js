@@ -14,29 +14,32 @@ const filmes = new SharedArray('movies', function () {
     return JSON.parse(open('../../../data/dynamic/movies.json'));
 });
 
-//Criando filme e pegando o id
+// Criando filme e obtendo o ID
 export function setup() {
     const body = randomItem(filmes);
-    const post = baseRest.post(ENDPOINTS.MOVIES_ENDPOINT, body);
+    baseRest.post(ENDPOINTS.MOVIES_ENDPOINT, body);
+
+    // Buscar o filme pelo nome (ou outro campo único) para obter o ID
     const get = baseRest.get(ENDPOINTS.MOVIES_ENDPOINT);
     const response = JSON.parse(get.body);
-    const id = response[0].id
-    return { id }   
+    const filmeCriado = response.find(filme => filme.nome === body.nome);
+
+    if (filmeCriado) {
+        return { id: filmeCriado._id };
+    } else {
+        throw new Error('Filme criado não encontrado na lista de filmes.');
+    }
 }
 
-// Pegando id do setup para listar
+// Usando o ID do setup para listar
 export default function (data) {
     const id = data.id;
-    const res = baseRest.get(ENDPOINTS.MOVIES_ENDPOINT + `/${id}`)
-    baseChecks.checkStatusCode(res, 200);      
+    const res = baseRest.get(`${ENDPOINTS.MOVIES_ENDPOINT}/${id}`);
+    baseChecks.checkStatusCode(res, 200);
 }
 
 // Limpeza de dados
-export function teardown() {
-    const res = baseRest.get(ENDPOINTS.MOVIES_ENDPOINT)
-    const dados = JSON.parse(res.body);
-    const ids = dados.map(item => item._id);
-    ids.forEach(id => {
-        const del = baseRest.del(ENDPOINTS.MOVIES_ENDPOINT + `/${id}`);
-    })
+export function teardown(data) {
+    const id = data.id;
+    baseRest.del(`${ENDPOINTS.MOVIES_ENDPOINT}/${id}`);
 }

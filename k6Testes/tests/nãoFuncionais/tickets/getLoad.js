@@ -8,7 +8,7 @@ const baseRest = new BaseRest(base_uri);
 const baseChecks = new BaseChecks();
 
 const tickets = new SharedArray('tickets', function () {
-    return JSON.parse(open('../../data/dynamic/tickets.json'));
+    return JSON.parse(open('../../../data/dynamic/tickets.json'));
   });
 
 // Criando ticket

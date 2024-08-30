@@ -17,16 +17,24 @@ const filmes = new SharedArray('movies', function () {
 export default function () {
     // Criar um filme
     const body = randomItem(filmes);
-    baseRest.post(ENDPOINTS.MOVIES_ENDPOINT, body);
+    const postResponse = baseRest.post(ENDPOINTS.MOVIES_ENDPOINT, body);
+    baseChecks.checkStatusCode(postResponse, 201); // Verifica se o filme foi criado com sucesso
 
-    // Buscar todos os filmes e obter o ID do primeiro filme
+    // Buscar todos os filmes e encontrar o filme recém-criado
     const getResponse = baseRest.get(ENDPOINTS.MOVIES_ENDPOINT);
     const response = JSON.parse(getResponse.body);
-    if (response.length > 0) {
-        const id = response[0]._id;
+
+    // Filtrar para encontrar o ID do filme criado com base em um campo único, como o nome
+    const filmeCriado = response.find(filme => filme.nome === body.nome);
+
+    if (filmeCriado) {
+        const id = filmeCriado._id;
 
         // Excluir o filme criado
         const deleteResponse = baseRest.del(`${ENDPOINTS.MOVIES_ENDPOINT}/${id}`);
         baseChecks.checkStatusCode(deleteResponse, 200); // Verificar se a exclusão foi bem-sucedida
+    } else {
+        console.error('Filme criado não encontrado na lista de filmes.');
     }
 }
+

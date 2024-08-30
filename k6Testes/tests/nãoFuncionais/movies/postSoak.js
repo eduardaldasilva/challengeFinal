@@ -10,7 +10,7 @@ const base_uri = testConfig.environment.hml.url;
 const baseRest = new BaseRest(base_uri);
 const baseChecks = new BaseChecks();
 
-// Carregar dados de filmes a partir do arquivo JSON
+
 const filmes = new SharedArray('movies', function () {
     return JSON.parse(open('../../../data/dynamic/movies.json'));
 });
