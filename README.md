@@ -3,27 +3,10 @@
 
 Este repositório é dedicado aos testes funcionais e não funcionais realizados na API Cinema, baseada nas user stories fornecidas e na documentação Swagger da API. A API permite realizar operações CRUD (Criar, Ler, Atualizar, Deletar) para filmes e ingressos.
 
-[Documentos do Challenge](challengeDocs)  
-[Testes do Challenge](k6Testes)
+🔗 [Documentos do Challenge](challengeDocs)  
+🔗 [Testes do Challenge](k6Testes)
 
-# Documentação do Projeto
-
-Este repositório contém a documentação e os relatórios do projeto. Abaixo estão os links para acessar os diferentes documentos e relatórios:
-
-## Relatórios de Bugs e Melhorias
-- [Relatório de Bugs e Melhorias](challengeDocs/reportsBugs.md)
-
-## Resultados Funcionais
-- [Resultados Funcionais](challengeDocs/resultadosFuncionais.md)
-
-## Resultados Não Funcionais
-- [Resultados Não Funcionais](challengeDocs/resultadosNaoFuncional.md)
-
-## Plano de Testes
-- [Plano de Testes](challengeDocs/planoTestes.md)
-
-
-### Descrição do Projeto
+## 📚 Descrição do Projeto
 
 - **Data de Início:** 19/08/2024
 - **Data da Apresentação Final:** 30/08/2024
@@ -36,26 +19,34 @@ Para auxiliar na visualização dos status codes e respostas esperadas, foi cria
 
 ![Mapa Mental](Assets/mapaMental.png)
 
-### Histórias de Usuário
 
-- [Movies User Story](challengeDocs/userStories/Movies.md)
-- [Tickets User Story](challengeDocs/userStories/Tickets.md)
+### 📝 Relatórios
 
-### Planejamento de Testes
+- **Relatório de Bugs e Melhorias:** [Relatório de Bugs e Melhorias](challengeDocs/reportsBugs.md)
+- **Resultados Funcionais:** [Resultados Funcionais](challengeDocs/resultadosFuncionais.md)
+- **Resultados Não Funcionais:** [Resultados Não Funcionais](challengeDocs/resultadosNaoFuncional.md)
 
-Os testes foram planejados considerando cenários Funcionais e Não Funcionais:
+### 📋 Plano de Testes
 
-- [Planejamento de Testes](challengeDocs/planoTestes/planejamentoTestes.md)
-- [Plano de Testes Funcionais](challengeDocs/planoTestes/planejamentoFuncional.md)
-- [Plano de Testes Não Funcionais](challengeDocs/planoTestes/planejamentoNaoFuncional.md)
+- **Plano de Testes:** [Plano de Testes](challengeDocs/planoTestes.md)
 
-### Matriz de Rastreabilidade
+### 🧠 Histórias de Usuário
 
-Para localização dos Casos de Teste:
+- **Movies User Story:** [Movies User Story](challengeDocs/userStories/Movies.md)
+- **Tickets User Story:** [Tickets User Story](challengeDocs/userStories/Tickets.md)
 
-- [Matriz de Rastreabilidade](challengeDocs/matrizRastreabilidade.md)
+### 📊 Planejamento de Testes
+
+- **Planejamento de Testes:** [Planejamento de Testes](challengeDocs/planoTestes/planejamentoTestes.md)
+- **Plano de Testes Funcionais:** [Plano de Testes Funcionais](challengeDocs/planoTestes/planejamentoFuncional.md)
+- **Plano de Testes Não Funcionais:** [Plano de Testes Não Funcionais](challengeDocs/planoTestes/planejamentoNaoFuncional.md)
+
+### 🔍 Matriz de Rastreabilidade
+
+- **Matriz de Rastreabilidade:** [Matriz de Rastreabilidade](challengeDocs/matrizRastreabilidade.md)
 
 ---
+
 
 ## ⚙️ Configuração e Execução dos Testes
 
