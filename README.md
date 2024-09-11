@@ -1,7 +1,10 @@
 
 # Challenge Final - Programa de Bolsas Compass.Uol
 
-Este repositório é dedicado aos testes funcionais e não funcionais realizados na API Cinema, baseada nas user stories fornecidas e na documentação Swagger da API. A API permite realizar operações CRUD (Criar, Ler, Atualizar, Deletar) para filmes e ingressos.
+Este repositório é dedicado aos testes funcionais e não funcionais realizados na API Cinema, baseada nas user stories fornecidas e na documentação Swagger da API. 
+
+
+A API permite realizar operações CRUD (Criar, Ler, Atualizar, Deletar) para filmes e ingressos.
 
 🔗 [Documentos do Challenge](challengeDocs)  
 🔗 [Testes do Challenge](k6Testes)
@@ -17,7 +20,7 @@ Para auxiliar na visualização dos status codes e respostas esperadas, foi cria
 
 - [Mapa Mental XMind](https://github.com/eduardaldasilva/challengeFinal/blob/main/Assets/API%20Cinema.xmind)
 
-![Mapa Mental](Assets/mapaMental.png)
+<img src="Assets/mapaMental.png" alt="Mapa Mental" width="800"/>
 
 
 ### 📝 Relatórios
